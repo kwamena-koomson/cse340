@@ -5,7 +5,7 @@
 }
 
 :root {
-  --blue: #4c96d7;
+  --cyan: #4c96d7;
 }
 
 html {
@@ -15,7 +15,7 @@ html {
 }
 
 ul {
-  padding-left: 20px;
+  padding-left: 25px;
 }
 
 button {
@@ -29,17 +29,17 @@ img {
 p {
   margin: 0;
 }
-.red {
+.red-text {
   color: red;
 }
-.bold {
+.bold-text {
   font-weight: bold;
 }
 .mt10 {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 .mt20 {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 h1,
@@ -49,9 +49,8 @@ h2 {
 
 body {
   background: url("/images/site/small_check.webp") repeat;
-  /*background-size: cover;*/
   margin: 0;
-  font-family: "Tahoma", sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 .wrapper {
@@ -97,7 +96,7 @@ footer {
 
 .menu__item.active,
 .menu__item:hover {
-  background: var(--blue);
+  background: var(--cyan);
   color: #3a3a3a;
 }
 
@@ -174,7 +173,7 @@ footer {
 
 .description h2,
 .description p {
-  color: var(--blue);
+  color: var(--cyan);
   font-size: 15px;
 }
 
@@ -216,7 +215,7 @@ footer {
 
 .upgrades__item-image {
   height: 100px;
-  background: var(--blue);
+  background: var(--cyan);
   background-position: center;
   background-repeat: no-repeat;
   outline: 1px solid #3a3a3a;
@@ -276,7 +275,6 @@ footer {
   }
   .vehicle__column {
     padding: 10px;
-    /*flex: 1 1 auto;*/
   }
   .vehicle__column_thumbnails {
     max-width: 15%;
@@ -318,7 +316,7 @@ footer {
   }
   .wrapper {
     max-width: 1200px;
-    border: 5px solid var(--blue);
+    border: 5px solid var(--cyan);
     border-radius: 10px;
     margin: 0 auto 15px;
   }
