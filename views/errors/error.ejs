@@ -1,8 +1,12 @@
+<!-- Content Heading -->
 <% if (title) { %>
-  <h1><%= title %></h1>
-<% } else {
-  res.redirect('/')
+  <h1 id="errorHeader"><%= title %></h1>
+  <% } else {
+      res.redirect('/')
   } %>
-
-<!-- display error messages -->
-<p class="message"><%- message %></p>
+  
+  <!-- Image -->
+  <div><img id="errorImage" src="./images/site/sick-car.png" alt="Error Image"></div>
+  
+  <!-- Message -->
+  <div id="errorMessage"><%- message %></div>

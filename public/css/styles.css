@@ -1,354 +1,749 @@
+/******* Change Box Model ***************/
 *,
 *:before,
 *:after {
   box-sizing: border-box;
 }
 
-:root {
-  --cyan: #4c96d7;
+#navigation a {
+  text-decoration: none;
+  color: #FFFFFF;
+  font-weight: 700;
 }
 
-html {
+#wrapper {
+  max-width: 90%;
+  background-color: #FFFFFF;
+  color: #000000;
+  margin: 0 auto;
+  padding: 5px;
+  border-radius: 15px;
+  border-style: solid;
+  border-color: rgb(245, 78, 27);
+}
+
+#top-header {
+  margin: 10px;
+  padding: 5px;
+}
+
+.siteName {
+  font-family: 'Bungee Spice', sans-serif;
+  font-size: 2rem;
+}
+
+.siteName a {
+  text-decoration: none;
+}
+
+#tools {
+  float: right;
+  margin-right: calc(5% - 25px);
+  margin-top: calc(4% - 10px);
+  font-size: .8rem;
+}
+
+#tools a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+#tools, #navigation, .nav {
+  font-family: 'Nixie One', system-ui;
+}
+
+#navigation ul {
+  list-style: none;
+  background-color: black;
+  display: flex;
+  justify-content: space-around;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#navigation ul li {
+  color: white;
+  font-weight: 700;
+  font-size: .9rem;
+}
+
+h1, h2 {
+  font-family: 'Oswald', sans-serif;
+}
+
+li, #errorMessage {
+  font-family: 'Quattrocento', serif;
+}
+
+#errorImage {
+  width: 50%;
+  display: grid;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#errorMessage {
+  text-align: center;
+  font-size: 1rem;
+}
+
+.hero-banner {
+  margin: 15px;
+}
+
+.hero-banner h1 {
+  font-size: 2rem;
+}
+
+.container {
+  position: relative;
+}
+
+.hero-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-info {
+  background-color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  top: 0;
+  left: 15px;
+  padding-left: 15px;
+  padding-right: 5px;
+}
+
+.hero-info h2 {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  color: rgb(245, 78, 27);
+  text-shadow: 1px 1px 1px rgb(184, 150, 2); 
+  font-size: 1.15rem;
 }
 
-ul {
-  padding-left: 25px;
+.action {
+  font-family: 'Oswald', sans-serif;
+  background-color: rgb(245, 78, 27);
+  text-shadow: 1px 1px 1px rgb(184, 150, 2); 
+  border-radius: 5px;
+  padding: 3px 5px;
+  margin: 5px 0;
+  cursor: pointer;
 }
 
-button {
-  border: 0;
+.hero-info ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-img {
-  max-width: 100%;
+.hero-car-info li {
+  font-size: 1rem;
 }
 
-p {
+.review-header {
+  margin: 15px;
+  padding-top: 15px;
+}
+
+.review-list ul{
+  padding: 0;
   margin: 0;
 }
-.red-text {
-  color: red;
-}
-.bold-text {
-  font-weight: bold;
-}
-.mt10 {
-  margin-top: 5px;
-}
-.mt20 {
-  margin-top: 10px;
+
+.review-list li {
+  font-size: 0.95rem;
 }
 
-h1,
-h2 {
-  font-size: 16px;
+.link-boxes {
+  display: flex;
+  flex-flow: row wrap;
 }
 
-body {
-  background: url("/images/site/small_check.webp") repeat;
+.links {
+  margin: 10px;
+}
+
+.link-box {
+  background-color:rgba(219, 217, 217, 0.5);
+  height: 100px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  margin: 5px;
+}
+
+figure {
+  padding: 0;
   margin: 0;
-  font-family: "Arial", sans-serif;
 }
 
-.wrapper {
-  max-width: 100%;
+figcaption {
+  font-family: 'Quattrocento', serif;
+  font-weight: 300;
+  text-align: center;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#contentHeader, #errorHeader {
+  font-family: 'Quattrocento', serif;
+  
+}
+
+#contentHeader {
+  font-size: 3rem;
+  margin: 0 auto;
+  padding-left: 5px;
+}
+
+#errorHeader {
+  font-size: 2rem;
+  margin: 7px;
+  padding-left: 7px;
+
+}
+
+#inv-display {
+  list-style: none;
   margin: 0;
-  background: #fff;
-  padding: 10px 0;
+  padding: 0;
 }
 
-.h1 {
-  font-size: 22px;
+.grid-display img {
+  border-radius: 10px;
 }
 
-.home-page .h1 {
-  padding-left: 10px;
+.grid-display hr {
+  width: 75%;
+  border: 2px solid #000000;
+  border-radius: 2px;
+}
+
+.grid-display {
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid rgb(245, 78, 27);
+  border-radius: 7px;
+}
+
+.namePrice {
+  line-height: 1rem;
+}
+
+.priceField {
+  font-weight: 700;
+  font-family: 'Quattrocento', serif;
+}
+
+.grid-display a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 1rem;
+}
+
+#vehicle-info {
+  margin: 20px;
+}
+
+#vehicle {
+  margin-left: 20px;
+}
+
+#vehicle-info img {
+  width: 95%;
+  border-radius: 5px;
+}
+
+.vehicleInfo {
+  width: 95%;
+  border: 2px solid black;
+  border-radius: 2px;
+}
+
+.price {
+  font-weight: 700;
+  font-family: 'Quattrocento', serif;
+  font-size: 1.5rem;
+}
+
+.description, .vehicleColor, .vehicleMiles {
+  font-family: 'Quattrocento', serif;
 }
 
 .notice {
-  color: red;
-  font-weight: bold;
-  font-style: italic;
+  list-style: none;
+  font-family: 'Quattrocento', serif;
+  font-size: 1rem;
+  color:rgb(250, 8, 8);
 }
 
-footer {
-  padding: 10px;
+#login {
+  font-family: 'Quattrocento', serif;
+  margin: 10px;
+}
+
+.login {
+  width: 75%;
+  background-color: rgb(0, 0, 0);
+  border-radius: 5px;
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+#login-form {
+  padding: 20px;
+  font-family: 'Quattrocento', serif;
+  color: white;
+  line-height: 1.75rem;
+  text-align: left;
+}
+
+.inputLength {
+  width: 100%;
+}
+
+#login-form input {
+  padding: 7px;
+  border-radius: 5px;
+  margin: 7px auto;
+  
+}
+
+.button {
+  text-align: center;
+}
+
+.login-button {
+  margin-top: 15px;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.25rem;
+  width: 60%;
+  cursor: pointer;
+}
+
+.login-break {
+  width: 90%;
+  border: 1px solid white;
+  border-radius: 3px;  
   margin-top: 0;
 }
 
-.menu {
-  background: #3a3a3a;
-  display: flex;
-  margin: 10px 0;
-  padding: 0;
-}
-
-.menu__item {
+.registration {
+  font-family: 'Nixie One', system-ui;
   color: white;
-  list-style: none;
-  text-decoration: none;
-  flex: 1 1 auto;
+}
+
+.registration a {
+  color: white;
+}
+
+#register {
+  margin-left: 15px;
+}
+
+.inputRequirements {
+  font-family: 'Quattrocento', serif;
+  margin-left: 7px;
+  padding-left: 10px;
+}
+
+#registration {
+  width: 90%;
+  background-color: rgb(0, 0, 0);
+  border-radius: 5px;
+  margin: 0 auto;
   text-align: center;
+  padding-bottom: 10px;
 }
 
-.menu__item.active,
-.menu__item:hover {
-  background: var(--cyan);
-  color: #3a3a3a;
-}
-
-.menu__item-link {
-  display: block;
-  padding: 20px 8px;
-  color: #fff;
-  text-decoration: none;
-}
-
-.top-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.main {
-  padding: 0 4px 20px;
-}
-
-.main_500 {
-  padding: 0 25px;
-}
-
-.header-right {
-  display: flex;
-  padding-right: 10px;
-}
-
-.header-link {
-  padding: 10px;
-  margin: auto;
-  text-decoration: none;
-  color: #000;
-  font-size: 16px;
-  display: block;
-}
-
-.header-link:hover {
-  text-decoration: underline;
-}
-.header-link_inactive:hover,
-.header-link_search:hover {
-  text-decoration: none;
-}
-
-.logo {
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
-  font-size: 30px;
-  padding: 12px 5px;
-}
-
-.own-today-button {
-  background: url("/images/site/own_today.png") no-repeat;
-  background-size: 100%;
-  width: 100%;
-  max-width: 241px;
-  padding-top: 29.2%;
-  cursor: pointer;
-  margin: 20px 0 0;
-  font-size: 0;
-  line-height: 0;
-}
-
-.text_forbutton {
-  opacity: 0;
-}
-
-.description {
-  position: relative;
-  text-align: center;
-}
-
-.description h2,
-.description p {
-  color: var(--cyan);
-  font-size: 15px;
-}
-
-.description h2 {
-  margin: 5px 0;
-}
-
-.description__text {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 1;
+#registration-form {
+  padding: 20px;
+  font-family: 'Quattrocento', serif;
+  color: white;
+  line-height: 1.75rem;
   text-align: left;
-  padding: 8px 15px;
-  background: rgba(255, 255, 255, 0.5);
 }
 
-.description__image {
+.inputLength {
   width: 100%;
 }
 
-.reviews__item + .reviews__item {
-  margin-top: 12px;
+#registration-form input {
+  padding: 7px;
+  border-radius: 5px;
+  margin: 7px auto;
+  
 }
 
-.upgrades__list {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -15px -4px;
-  padding: 0;
-}
-
-.upgrades__item {
-  width: calc(50% - 9px);
-  margin: 15px 4px;
-  list-style: none;
+.button {
   text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  
 }
 
-.upgrades__item-image {
-  height: 100px;
-  background: var(--cyan);
-  background-position: center;
-  background-repeat: no-repeat;
-  outline: 1px solid #3a3a3a;
+.register-button {
+  margin-top: 15px;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.5rem;
+  width: 60%;
+  cursor: pointer;
 }
 
-.upgrade-1 {
-  background-image: url("/images/upgrades/flux-cap.png");
+.passwordRequirements {
+  padding: 0;
+  margin: 0;
 }
 
-.upgrade-2 {
-  background-image: url("/images/upgrades/flame.jpg");
+.passwordRequirements li {
+  list-style: circle;
+  margin-left: 15px;
 }
 
-.upgrade-3 {
-  background-image: url("/images/upgrades/bumper_sticker.jpg");
+footer {
+  font-family: 'Nixie One', system-ui;
+  font-weight: 700;
 }
 
-.upgrade-4 {
-  background-image: url("/images/upgrades/hub-cap.jpg");
-}
-
-/* MEDIA */
-
-@media (min-width: 500px) {
-  /* … */
-}
-
-@media (min-width: 720px) {
-  .header-link {
-    font-size: 18px;
+@media only screen and (min-width: 640px) {
+  
+  body {
+    background-image: url('../images/site/small_check.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
   }
-  .header-right {
-    padding-right: 20px;
+  
+  .siteName {
+    font-size: 3rem;
   }
-  #inv-display {
-    flex-flow: row wrap;
-    justify-content: flex-start;
-  }
-  #inv-display h2 {
+  
+  #tools {
     font-size: 1rem;
   }
-  #inv-display li {
-    max-width: 200px;
-    flex: 1 0 auto;
-    text-align: center;
-    height: 250px;
+  
+  #navigation ul li {
+    font-size: 1.15rem;
+  }
+  
+  .hero-banner h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero-info {
+    left: 25px;
+  }
+  
+  .hero-info h2 { 
+    font-size: 1.75rem;
+  }
+  
+  .hero-info ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .hero-car-info li {
+    font-size: 1.2rem;
+  }
+
+  .action {
+    font-size: 1.25rem;
+  }
+  
+  .bottom-info {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-flow: row wrap;
   }
-  #inv-display div {
-    width: 100%;
+  
+  .reviews {
+    width: 315px;
   }
-  .vehicle__container {
-    flex-direction: row;
-    margin: -10px;
+
+  .links {
+    width: 325px;
+    order: -1;
   }
-  .vehicle__column {
-    padding: 10px;
+
+  .review-header, .link-header {
+    font-size: 1.15rem;
   }
-  .vehicle__column_thumbnails {
-    max-width: 15%;
-    order: 1;
+
+  .review-list ul {
+    padding: 0;
   }
-  .vehicle__column_main {
-    max-width: 35%;
-    order: 2;
+
+  .review-list li {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
-  .vehicle__column_main-full {
-    max-width: 50%;
-    order: 1;
+  
+  .link-boxes {
+    display: flex;
+    flex-flow: row wrap;
   }
-  .vehicle__column_text {
-    max-width: 50%;
-    order: 3;
+  
+  .links {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
   }
-  .vehicle__thumbnail {
-    transition: transform 0.5s ease;
+  
+  .link-box {
+    background-color:rgba(219, 217, 217, 0.5);
+    height: 75px;
+    width: 125px;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    margin: 5px;
   }
-  .vehicle__thumbnail:hover {
-    transform: scale(1.5);
+  
+  figure {
+    padding: 0;
+    margin: 0;
   }
-  .vehicle__thumbnails-container {
-    flex-direction: column;
+  
+  figcaption {
+    font-family: 'Quattrocento', serif;
+    font-weight: 300;
+    text-align: center;
+    text-decoration: underline;
+    cursor: pointer;
   }
-  .vehicle__info-list {
-    margin-top: 0;
+
+  .grid-display a {
+    font-size: 1.5rem;  
   }
-  .inv-img-container {
-    height: 150px;
-    overflow: hidden;
+
+  .priceField {
+    font-size: 1.5rem;
   }
+
+  .grid-display {
+    padding: 20px;
+    margin: 30px;
+  }
+
+  #errorMessage {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  
+  #errorHeader {
+    font-size: 2rem;
+    margin: 10px;
+    padding-left: 7px;
+  }
+
+  .notice {
+    font-size: 1.3rem;
+  }
+
+  .inputLength {
+    width: 85%;
+  }
+
+  .login-button {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 1.25rem;
+    width: 50%;
+  }
+
+  #register {
+    margin-left: 30px;
+  }
+  
+  .inputRequirements {
+    margin-left: 25px;
+  }
+
 }
 
-@media (min-width: 1200px) {
-  body {
-    padding-top: 30px;
+  @media only screen and (min-width: 1024px)  {
+
+    #wrapper {
+      max-width: 90%;
+    }
+    
+    .siteName {
+      font-size: 4rem;
+    }
+    
+    #tools {
+      font-size: 1.25rem;
+    }
+    
+    #navigation ul li {
+      font-size: 1.75rem;
+    }
+    
+    .hero-banner h1 {
+      font-size: 3.25rem;
+    }
+    
+    .hero-info {
+      left: 75px;
+    }
+    
+    .hero-info h2 { 
+      font-size: 2.25rem;
+    }
+    
+    .hero-car-info li {
+      font-size: 1.75rem;
+    }
+  
+    .action {
+      font-size: 2rem;
+    }
+    
+    .review-header, .link-header {
+      font-size: 1.75rem;
+    }
+  
+    .review-list ul {
+      padding: 0;
+    }
+  
+    .review-list li {
+      font-size: 1.75rem;
+      line-height: 3rem;
+    }
+    
+    figcaption {
+      font-size: 1.5rem;;
+    }
+
+    .links, .reviews {
+      width: 500px;
+      padding-left: 25px;
+      justify-content: space-around;
+    }
+  
+    .link-box {
+      height: 125px;
+      width: 175px;
+    }
+
+    #inv-display {
+      display: flex;
+      justify-content: space-around;
+      flex-flow: row wrap;
+    }
+    
+    .grid-display {
+      padding: 20px;
+      margin: 10px;
+    }
+    
+    .namePrice {
+      line-height: 2rem;
+    }
+    
+    .grid-display a {
+      font-size: 2.5rem;
+    }
+
+    .priceField {
+      font-size: 2.5rem;
+    }
+
+    #vehicle-info {
+      display: flex;
+    }
+    
+    #vehicle {
+      margin-left: 20px;
+    }
+    
+    #vehicle-info img {
+      width: 95%;
+      border-radius: 5px;
+    }
+    
+    .vehicleInfo {
+      width: 95%;
+      border: 2px solid black;
+      border-radius: 2px;
+    }
+    
+    .description, .vehicleColor, .vehicleMiles {
+      margin-left: 10px;
+    }
+
+    .vehicle-display {
+      padding: 10px;
+      margin: 10px;
+    }
+    
+    .price {
+      font-size: 2rem;
+      margin-left: 10px;
+    }
+
+    #errorImage {
+      display: grid;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    #errorMessage {
+      text-align: center;
+      font-size: 2rem;
+    }
+    
+    #errorHeader {
+      font-size: 3rem;
+      margin: 8px;
+      padding-left: 15px;
+    
+    }
+
+    .notice {
+      font-size: 1.75rem;
+    }
+
+    .login {
+      width: 50%;
+    }
+
+    .inputLength {
+      width: 90%;
+    }
+
+    #register {
+      margin-left: 40px;
+    }
+    
+    .inputRequirements {
+      font-size: 1.25rem;
+      margin-left: 35px;
+    }
+
+    #login {
+      font-size: 3rem;
+    }
+
+    #registration-form {
+      font-size: 1.5rem;
+      
+    }
+
   }
-  .wrapper {
-    max-width: 1200px;
-    border: 5px solid var(--cyan);
-    border-radius: 10px;
-    margin: 0 auto 15px;
-  }
-  .menu__item-link {
-    padding: 20px;
-  }
-  .description__text {
-    padding: 0 30px;
-  }
-  .description h2,
-  .description p {
-    font-size: 20px;
-  }
-  .reviews-upgrades-wrapper {
-    display: flex;
-    flex-direction: row-reverse;
-    padding: 0 15px 60px;
-    margin: 20px -20px 0;
-  }
-  .reviews,
-  .upgrades {
-    width: 50%;
-    padding: 0 20px;
-  }
-  .reviews__item + .reviews__item {
-    margin-top: 20px;
-  }
-  .reviews-upgrades-wrapper .h1 {
-    margin-bottom: 25px;
-  }
-  .header-link {
-    font-size: 20px;
-    padding: 20px;
-  }
-}

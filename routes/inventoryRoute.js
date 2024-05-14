@@ -1,8 +1,17 @@
-// Needed Resources 
-const express = require("express")
-const router = new express.Router() 
+// Needed resources
+const express = require ("express")
+const router = new express.Router()
 const invController = require("../controllers/invController")
-// Route to build inventory by classification view
-router.get("/type/:classificationId", invController.buildByClassificationId);
+const utilities = require("../utilities/")
+const errorController = require("../controllers/errorController")
 
-module.exports = router;
+// Route to build inventory by classification view
+router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
+
+// Route to build inventory by single vehicle view
+router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByVehicleId));
+
+// Route to generate an intentional error process
+router.get("/error", utilities.handleErrors(errorController.generateError))
+
+module.exports = router

@@ -1,0 +1,25 @@
+<!-- Content Heading -->
+<% if (title) { %>
+    <h1 id="login"><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+
+<!-- Message -->
+<%- messages() %>
+
+<!-- Form Items -->
+<div class="login">
+<form id="login-form" action="/account/login" method="post">
+    <label for="account_email">Email Address:</label><br>
+    <input type="email" class="inputLength" id="account_email" name="account_email" required placeholder="Enter a valid email address"><br>
+    <label for="account_password">Password:</label><br>
+    <input type="password" class="inputLength" id="account_password" name="account_password" required
+    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"><br>
+    <div class="button">
+    <input type="submit" class="login-button" value="LOGIN">
+    </div>
+</form>
+<hr class="login-break">
+<p class="registration">No account? <a href="/account/register">Sign-up</a></p>
+</div>

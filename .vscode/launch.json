@@ -5,14 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch CSE Motors",
-            "program": "${workspaceFolder}\\server.js",
+            "type": "node",
             "request": "launch",
+            "name": "Launch CSE Motors",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "type": "node",
-                
+            "program": "${workspaceFolder}\\server.js"
         }
     ]
 }
