@@ -1,749 +1,560 @@
-/******* Change Box Model ***************/
 *,
 *:before,
 *:after {
   box-sizing: border-box;
 }
 
-#navigation a {
-  text-decoration: none;
-  color: #FFFFFF;
-  font-weight: 700;
+:root {
+  --blue: #4c96d7;
 }
 
-#wrapper {
-  max-width: 90%;
-  background-color: #FFFFFF;
-  color: #000000;
-  margin: 0 auto;
-  padding: 5px;
-  border-radius: 15px;
-  border-style: solid;
-  border-color: rgb(245, 78, 27);
-}
-
-#top-header {
-  margin: 10px;
-  padding: 5px;
-}
-
-.siteName {
-  font-family: 'Bungee Spice', sans-serif;
-  font-size: 2rem;
-}
-
-.siteName a {
-  text-decoration: none;
-}
-
-#tools {
-  float: right;
-  margin-right: calc(5% - 25px);
-  margin-top: calc(4% - 10px);
-  font-size: .8rem;
-}
-
-#tools a {
-  color: #000000;
-  text-decoration: none;
-  font-weight: 700;
-}
-
-#tools, #navigation, .nav {
-  font-family: 'Nixie One', system-ui;
-}
-
-#navigation ul {
-  list-style: none;
-  background-color: black;
-  display: flex;
-  justify-content: space-around;
-  padding: 5px 10px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#navigation ul li {
-  color: white;
-  font-weight: 700;
-  font-size: .9rem;
-}
-
-h1, h2 {
-  font-family: 'Oswald', sans-serif;
-}
-
-li, #errorMessage {
-  font-family: 'Quattrocento', serif;
-}
-
-#errorImage {
-  width: 50%;
-  display: grid;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#errorMessage {
-  text-align: center;
-  font-size: 1rem;
-}
-
-.hero-banner {
-  margin: 15px;
-}
-
-.hero-banner h1 {
-  font-size: 2rem;
-}
-
-.container {
-  position: relative;
-}
-
-.hero-img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero-info {
-  background-color: rgba(255, 255, 255, 0.5);
-  position: absolute;
-  top: 0;
-  left: 15px;
-  padding-left: 15px;
-  padding-right: 5px;
-}
-
-.hero-info h2 {
+html {
   margin: 0;
   padding: 0;
-  color: rgb(245, 78, 27);
-  text-shadow: 1px 1px 1px rgb(184, 150, 2); 
-  font-size: 1.15rem;
+  box-sizing: border-box;
 }
 
-.action {
-  font-family: 'Oswald', sans-serif;
-  background-color: rgb(245, 78, 27);
-  text-shadow: 1px 1px 1px rgb(184, 150, 2); 
-  border-radius: 5px;
-  padding: 3px 5px;
-  margin: 5px 0;
-  cursor: pointer;
+ul {
+  padding-left: 20px;
 }
 
-.hero-info ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+button {
+  border: 0;
 }
 
-.hero-car-info li {
-  font-size: 1rem;
+img {
+  max-width: 100%;
 }
 
-.review-header {
-  margin: 15px;
-  padding-top: 15px;
-}
-
-.review-list ul{
-  padding: 0;
+p {
   margin: 0;
 }
-
-.review-list li {
-  font-size: 0.95rem;
+.red {
+  color: red;
+}
+.black {
+  color: black;
+}
+.bold {
+  font-weight: bold;
+}
+.mt10 {
+  margin-top: 10px;
+}
+.mt20 {
+  margin-top: 20px;
 }
 
-.link-boxes {
-  display: flex;
-  flex-flow: row wrap;
+h1,
+h2 {
+  font-size: 16px;
 }
 
-.links {
-  margin: 10px;
-}
-
-.link-box {
-  background-color:rgba(219, 217, 217, 0.5);
-  height: 100px;
-  width: 150px;
-  display: flex;
-  justify-content: center;
-  padding: 5px;
-  margin: 5px;
-}
-
-figure {
-  padding: 0;
+body {
+  background: url("/images/site/small_check.webp") repeat;
+  /*background-size: cover;*/
   margin: 0;
+  font-family: "Tahoma", sans-serif;
 }
 
-figcaption {
-  font-family: 'Quattrocento', serif;
-  font-weight: 300;
-  text-align: center;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-#contentHeader, #errorHeader {
-  font-family: 'Quattrocento', serif;
-  
-}
-
-#contentHeader {
-  font-size: 3rem;
-  margin: 0 auto;
-  padding-left: 5px;
-}
-
-#errorHeader {
-  font-size: 2rem;
-  margin: 7px;
-  padding-left: 7px;
-
-}
-
-#inv-display {
-  list-style: none;
+.wrapper {
+  max-width: 100%;
   margin: 0;
-  padding: 0;
+  background: #fff;
+  padding: 10px 0;
 }
 
-.grid-display img {
-  border-radius: 10px;
+.h1 {
+  font-size: 22px;
 }
 
-.grid-display hr {
-  width: 75%;
-  border: 2px solid #000000;
-  border-radius: 2px;
-}
-
-.grid-display {
-  text-align: center;
-  padding: 10px;
-  margin: 10px;
-  border: 2px solid rgb(245, 78, 27);
-  border-radius: 7px;
-}
-
-.namePrice {
-  line-height: 1rem;
-}
-
-.priceField {
-  font-weight: 700;
-  font-family: 'Quattrocento', serif;
-}
-
-.grid-display a {
-  text-decoration: none;
-  color: #000000;
-  font-size: 1rem;
-}
-
-#vehicle-info {
-  margin: 20px;
-}
-
-#vehicle {
-  margin-left: 20px;
-}
-
-#vehicle-info img {
-  width: 95%;
-  border-radius: 5px;
-}
-
-.vehicleInfo {
-  width: 95%;
-  border: 2px solid black;
-  border-radius: 2px;
-}
-
-.price {
-  font-weight: 700;
-  font-family: 'Quattrocento', serif;
-  font-size: 1.5rem;
-}
-
-.description, .vehicleColor, .vehicleMiles {
-  font-family: 'Quattrocento', serif;
-}
-
-.notice {
-  list-style: none;
-  font-family: 'Quattrocento', serif;
-  font-size: 1rem;
-  color:rgb(250, 8, 8);
-}
-
-#login {
-  font-family: 'Quattrocento', serif;
-  margin: 10px;
-}
-
-.login {
-  width: 75%;
-  background-color: rgb(0, 0, 0);
-  border-radius: 5px;
-  margin: 0 auto;
-  text-align: center;
-  padding-bottom: 10px;
-}
-
-#login-form {
-  padding: 20px;
-  font-family: 'Quattrocento', serif;
-  color: white;
-  line-height: 1.75rem;
-  text-align: left;
-}
-
-.inputLength {
-  width: 100%;
-}
-
-#login-form input {
-  padding: 7px;
-  border-radius: 5px;
-  margin: 7px auto;
-  
-}
-
-.button {
-  text-align: center;
-}
-
-.login-button {
-  margin-top: 15px;
-  font-family: 'Oswald', sans-serif;
-  letter-spacing: 2px;
-  font-weight: 700;
-  text-align: center;
-  font-size: 1.25rem;
-  width: 60%;
-  cursor: pointer;
-}
-
-.login-break {
-  width: 90%;
-  border: 1px solid white;
-  border-radius: 3px;  
-  margin-top: 0;
-}
-
-.registration {
-  font-family: 'Nixie One', system-ui;
-  color: white;
-}
-
-.registration a {
-  color: white;
-}
-
-#register {
-  margin-left: 15px;
-}
-
-.inputRequirements {
-  font-family: 'Quattrocento', serif;
-  margin-left: 7px;
+.home-page .h1 {
   padding-left: 10px;
 }
 
-#registration {
-  width: 90%;
-  background-color: rgb(0, 0, 0);
-  border-radius: 5px;
-  margin: 0 auto;
+.notice {
   text-align: center;
-  padding-bottom: 10px;
+  font-weight: bold;
+  font-style: italic;
+  margin: 10px;
+  padding: 18px;
+  border-radius: 6px;
+  background-color: lightsteelblue;
 }
 
-#registration-form {
-  padding: 20px;
-  font-family: 'Quattrocento', serif;
-  color: white;
-  line-height: 1.75rem;
-  text-align: left;
-}
-
-.inputLength {
-  width: 100%;
-}
-
-#registration-form input {
-  padding: 7px;
-  border-radius: 5px;
-  margin: 7px auto;
-  
-}
-
-.button {
-  text-align: center;
-  border-radius: 5px;
-  cursor: pointer;
-  
-}
-
-.register-button {
-  margin-top: 15px;
-  font-family: 'Oswald', sans-serif;
-  letter-spacing: 2px;
-  font-weight: 700;
-  text-align: center;
-  font-size: 1.5rem;
-  width: 60%;
-  cursor: pointer;
-}
-
-.passwordRequirements {
-  padding: 0;
-  margin: 0;
-}
-
-.passwordRequirements li {
-  list-style: circle;
-  margin-left: 15px;
+.notice li {
+  list-style-type: none;
 }
 
 footer {
-  font-family: 'Nixie One', system-ui;
-  font-weight: 700;
+  padding: 10px;
+  margin-top: 0;
 }
 
-@media only screen and (min-width: 640px) {
-  
+.menu {
+  background: #3a3a3a;
+  display: flex;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.menu__item {
+  color: white;
+  list-style: none;
+  text-decoration: none;
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.menu__item.active,
+.menu__item:hover {
+  background: var(--blue);
+  color: #3a3a3a;
+}
+
+.menu__item-link {
+  display: block;
+  padding: 20px 8px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.top-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main {
+  padding: 0 4px 20px;
+}
+
+.main_500 {
+  padding: 0 25px;
+}
+
+.header-right {
+  display: flex;
+  padding-right: 10px;
+}
+
+.header-link {
+  padding: 10px;
+  margin: auto;
+  text-decoration: none;
+  color: #000;
+  font-size: 16px;
+  display: block;
+}
+
+.header-link:hover {
+  text-decoration: underline;
+}
+.header-link_inactive:hover,
+.header-link_search:hover {
+  text-decoration: none;
+}
+
+.logo {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+  padding: 12px 5px;
+}
+
+.own-today-button {
+  background: url("/images/site/own_today.png") no-repeat;
+  background-size: 100%;
+  width: 100%;
+  max-width: 241px;
+  padding-top: 29.2%;
+  cursor: pointer;
+  margin: 20px 0 0;
+  font-size: 0;
+  line-height: 0;
+}
+
+.text_forbutton {
+  opacity: 0;
+}
+
+.description {
+  position: relative;
+  text-align: center;
+}
+
+.description h2,
+.description p {
+  color: var(--blue);
+  font-size: 15px;
+}
+
+.description h2 {
+  margin: 5px 0;
+}
+
+.description__text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  text-align: left;
+  padding: 8px 15px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.description__image {
+  width: 100%;
+}
+
+.reviews__item + .reviews__item {
+  margin-top: 12px;
+}
+
+.upgrades__list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px -4px;
+  padding: 0;
+}
+
+.upgrades__item {
+  width: calc(50% - 9px);
+  margin: 15px 4px;
+  list-style: none;
+  text-align: center;
+}
+
+.upgrades__item-image {
+  height: 100px;
+  background: var(--blue);
+  background-position: center;
+  background-repeat: no-repeat;
+  outline: 1px solid #3a3a3a;
+}
+
+.upgrade-1 {
+  background-image: url("/images/upgrades/flux-cap.png");
+}
+
+.upgrade-2 {
+  background-image: url("/images/upgrades/flame.jpg");
+}
+
+.upgrade-3 {
+  background-image: url("/images/upgrades/bumper_sticker.jpg");
+}
+
+.upgrade-4 {
+  background-image: url("/images/upgrades/hub-cap.jpg");
+}
+
+#inv-display {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#inv-display li {
+  margin-bottom: 0.5em;
+  border: 1px #ccc solid;
+  list-style-type: none;
+  flex: 1 1 auto;
+}
+
+.inv-img-container {
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #9c9c9c;
+}
+
+#inv-display li img {
+  max-width: 100%;
+}
+.inv-link-container {
+  position: relative;
+  height: 100%;
+}
+.inv-link-container:hover .inv-title {
+  color: #326ea2;
+}
+.inv-link {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+.inv-price {
+  padding-bottom: 4px;
+}
+
+.vehicle__container {
+  display: flex;
+  flex-direction: column;
+}
+.vehicle__info-list {
+  margin: 0;
+  padding: 0;
+  margin-top: 25px;
+}
+.vehicle__info {
+  list-style: none;
+  padding: 0 8px 8px;
+}
+.vehicle__info:nth-child(even) {
+  background: #d9d9d9;
+}
+.vehicle__info + .vehicle__info {
+  padding-top: 8px;
+}
+.vehicle__color {
+  display: inline-block;
+  width: 30px;
+  height: 18px;
+  margin-left: 25px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px 2px #d9d9d9;
+}
+.vehicle__vin-btn {
+  padding: 5px;
+  border-radius: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+#image-display {
+  display: flex;
+  padding: 0;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin: -15px;
+}
+
+#image-display li {
+  max-width: 200px;
+  list-style: none;
+  padding: 15px;
+}
+.delete-image {
+  font-size: 14px;
+  word-wrap: break-word;
+}
+.vehicle__column_thumbnails {
+  order: 3;
+}
+.vehicle__column_main,
+.vehicle__column_main-full {
+  margin: 0 auto;
+}
+.vehicle__thumbnails-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.vehicle__column {
+  margin: 0 auto;
+}
+
+.form {
+  max-width: 80%;
+  margin: 0 auto;
+  background: var(--blue);
+  padding: 40px;
+  border-radius: 6px;
+}
+
+.input-line {
+  display: block;
+}
+
+.input-line span {
+  display: block;
+}
+
+.input-line + .input-line {
+  margin-top: 10px;
+}
+
+.form input {
+  padding: 5px;
+  min-width: 30%;
+}
+
+.form-submit-button {
+  margin-top: 10px;
+  background: white;
+  padding: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.form-submit-button:hover {
+  background: lightsteelblue;
+}
+
+.sign-up-suggestion {
+  margin-top: 20px;
+}
+
+.form-message {
+  padding-bottom: 5px;
+}
+
+.form-message_error {
+  color: red;
+}
+
+.form-message_success {
+  color: green;
+}
+
+.pb15 {
+  padding-bottom: 15px;
+}
+
+.form-note {
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+label.invalid > p {
+  color: red;
+}
+
+label.invalid > input,
+label.invalid > textarea {
+  border: 1px solid red;
+}
+
+input:required:invalid,
+input:focus:invalid {
+  background-image: url(/images/invalid.png);
+  background-position: right top;
+  background-repeat: no-repeat;
+}
+input:required:valid {
+  background-image: url(/images/valid.png);
+  background-position: right top;
+  background-repeat: no-repeat;
+}
+
+/* MEDIA */
+
+@media (min-width: 500px) {
+  /* … */
+}
+
+@media (min-width: 720px) {
+  .header-link {
+    font-size: 18px;
+  }
+  .header-right {
+    padding-right: 20px;
+  }
+  #inv-display {
+    flex-flow: row wrap;
+    justify-content: flex-start;
+  }
+  #inv-display h2 {
+    font-size: 1rem;
+  }
+  #inv-display li {
+    max-width: 197px;
+    flex: 1 0 auto;
+    text-align: center;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  #inv-display div {
+    width: 100%;
+  }
+  .vehicle__container {
+    flex-direction: row;
+    margin: -10px;
+  }
+  .vehicle__column {
+    padding: 10px;
+    /*flex: 1 1 auto;*/
+  }
+  .vehicle__column_thumbnails {
+    max-width: 15%;
+    order: 1;
+  }
+  .vehicle__column_main {
+    max-width: 35%;
+    order: 2;
+  }
+  .vehicle__column_main-full {
+    max-width: 50%;
+    order: 1;
+  }
+  .vehicle__column_text {
+    max-width: 50%;
+    order: 3;
+  }
+  .vehicle__thumbnail {
+    transition: transform 0.5s ease;
+  }
+  .vehicle__thumbnail:hover {
+    transform: scale(1.5);
+  }
+  .vehicle__thumbnails-container {
+    flex-direction: column;
+  }
+  .vehicle__info-list {
+    margin-top: 0;
+  }
+  .inv-img-container {
+    height: 150px;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 1200px) {
   body {
-    background-image: url('../images/site/small_check.png');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+    padding-top: 30px;
   }
-  
-  .siteName {
-    font-size: 3rem;
+  .wrapper {
+    max-width: 1200px;
+    border: 5px solid var(--blue);
+    border-radius: 10px;
+    margin: 0 auto 15px;
   }
-  
-  #tools {
-    font-size: 1rem;
-  }
-  
-  #navigation ul li {
-    font-size: 1.15rem;
-  }
-  
-  .hero-banner h1 {
-    font-size: 2.5rem;
-  }
-  
-  .hero-info {
-    left: 25px;
-  }
-  
-  .hero-info h2 { 
-    font-size: 1.75rem;
-  }
-  
-  .hero-info ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .hero-car-info li {
-    font-size: 1.2rem;
-  }
-
-  .action {
-    font-size: 1.25rem;
-  }
-  
-  .bottom-info {
-    display: flex;
-    flex-flow: row wrap;
-  }
-  
-  .reviews {
-    width: 315px;
-  }
-
-  .links {
-    width: 325px;
-    order: -1;
-  }
-
-  .review-header, .link-header {
-    font-size: 1.15rem;
-  }
-
-  .review-list ul {
-    padding: 0;
-  }
-
-  .review-list li {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-  
-  .link-boxes {
-    display: flex;
-    flex-flow: row wrap;
-  }
-  
-  .links {
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .link-box {
-    background-color:rgba(219, 217, 217, 0.5);
-    height: 75px;
-    width: 125px;
-    display: flex;
-    justify-content: center;
-    padding: 5px;
-    margin: 5px;
-  }
-  
-  figure {
-    padding: 0;
-    margin: 0;
-  }
-  
-  figcaption {
-    font-family: 'Quattrocento', serif;
-    font-weight: 300;
-    text-align: center;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
-  .grid-display a {
-    font-size: 1.5rem;  
-  }
-
-  .priceField {
-    font-size: 1.5rem;
-  }
-
-  .grid-display {
+  .menu__item-link {
     padding: 20px;
-    margin: 30px;
   }
-
-  #errorMessage {
-    text-align: center;
-    font-size: 1.5rem;
+  .description__text {
+    padding: 0 30px;
   }
-  
-  #errorHeader {
-    font-size: 2rem;
-    margin: 10px;
-    padding-left: 7px;
+  .description h2,
+  .description p {
+    font-size: 20px;
   }
-
-  .notice {
-    font-size: 1.3rem;
+  .reviews-upgrades-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 0 15px 60px;
+    margin: 20px -20px 0;
   }
-
-  .inputLength {
-    width: 85%;
-  }
-
-  .login-button {
-    margin-top: 15px;
-    text-align: center;
-    font-size: 1.25rem;
+  .reviews,
+  .upgrades {
     width: 50%;
+    padding: 0 20px;
   }
-
-  #register {
-    margin-left: 30px;
+  .reviews__item + .reviews__item {
+    margin-top: 20px;
   }
-  
-  .inputRequirements {
-    margin-left: 25px;
+  .reviews-upgrades-wrapper .h1 {
+    margin-bottom: 25px;
   }
-
+  .header-link {
+    font-size: 20px;
+    padding: 20px;
+  }
 }
-
-  @media only screen and (min-width: 1024px)  {
-
-    #wrapper {
-      max-width: 90%;
-    }
-    
-    .siteName {
-      font-size: 4rem;
-    }
-    
-    #tools {
-      font-size: 1.25rem;
-    }
-    
-    #navigation ul li {
-      font-size: 1.75rem;
-    }
-    
-    .hero-banner h1 {
-      font-size: 3.25rem;
-    }
-    
-    .hero-info {
-      left: 75px;
-    }
-    
-    .hero-info h2 { 
-      font-size: 2.25rem;
-    }
-    
-    .hero-car-info li {
-      font-size: 1.75rem;
-    }
-  
-    .action {
-      font-size: 2rem;
-    }
-    
-    .review-header, .link-header {
-      font-size: 1.75rem;
-    }
-  
-    .review-list ul {
-      padding: 0;
-    }
-  
-    .review-list li {
-      font-size: 1.75rem;
-      line-height: 3rem;
-    }
-    
-    figcaption {
-      font-size: 1.5rem;;
-    }
-
-    .links, .reviews {
-      width: 500px;
-      padding-left: 25px;
-      justify-content: space-around;
-    }
-  
-    .link-box {
-      height: 125px;
-      width: 175px;
-    }
-
-    #inv-display {
-      display: flex;
-      justify-content: space-around;
-      flex-flow: row wrap;
-    }
-    
-    .grid-display {
-      padding: 20px;
-      margin: 10px;
-    }
-    
-    .namePrice {
-      line-height: 2rem;
-    }
-    
-    .grid-display a {
-      font-size: 2.5rem;
-    }
-
-    .priceField {
-      font-size: 2.5rem;
-    }
-
-    #vehicle-info {
-      display: flex;
-    }
-    
-    #vehicle {
-      margin-left: 20px;
-    }
-    
-    #vehicle-info img {
-      width: 95%;
-      border-radius: 5px;
-    }
-    
-    .vehicleInfo {
-      width: 95%;
-      border: 2px solid black;
-      border-radius: 2px;
-    }
-    
-    .description, .vehicleColor, .vehicleMiles {
-      margin-left: 10px;
-    }
-
-    .vehicle-display {
-      padding: 10px;
-      margin: 10px;
-    }
-    
-    .price {
-      font-size: 2rem;
-      margin-left: 10px;
-    }
-
-    #errorImage {
-      display: grid;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    #errorMessage {
-      text-align: center;
-      font-size: 2rem;
-    }
-    
-    #errorHeader {
-      font-size: 3rem;
-      margin: 8px;
-      padding-left: 15px;
-    
-    }
-
-    .notice {
-      font-size: 1.75rem;
-    }
-
-    .login {
-      width: 50%;
-    }
-
-    .inputLength {
-      width: 90%;
-    }
-
-    #register {
-      margin-left: 40px;
-    }
-    
-    .inputRequirements {
-      font-size: 1.25rem;
-      margin-left: 35px;
-    }
-
-    #login {
-      font-size: 3rem;
-    }
-
-    #registration-form {
-      font-size: 1.5rem;
-      
-    }
-
-  }

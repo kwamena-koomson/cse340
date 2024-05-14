@@ -1,40 +1,55 @@
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
 
-const invCont = {}
+const invController = {}
 
-/* ******************************
- * Build inventory by classification view
- * ****************************** */
-invCont.buildByClassificationId = async function (req, res, next) {
-    const classification_id = req.params.classificationId
-    const data = await invModel.getInventoryByClassificationId(classification_id)
-    const grid = await utilities.buildClassificationGrid(data)
-    let nav = await utilities.getNav()
-    const className = data[0].classification_name
-    // console.log(className)
-    res.render("./inventory/classification", {
-        title: className + " vehicles",
-        nav,
-        grid
-    })
+/* ***************************
+ *  Build inventory by classification view
+ * ************************** */
+invController.buildByClassificationId = async function (req, res, next) {
+  const classification_id = req.params.classificationId
+  const isNumber = /^[0-9]+$/.test(classification_id)
+  if (!isNumber) throw generateError("Wrong classification id in the URL. Should be a number.")
+
+  const data = await invModel.getInventoryByClassificationId(classification_id)
+  if (data.length === 0) throw generateError("Wrong URL. Check the classification id.", 404)
+
+  const grid = await utilities.buildClassificationGrid(data)
+  const nav = await utilities.getNav(classification_id)
+  const className = data[0].classification_name
+
+  res.render("./inventory/classification", {
+    title: className + " vehicles",
+    nav,
+    grid,
+  })
 }
 
-/* ********************************
- * Build inventory by single vehicle view
- * ******************************** */
-invCont.buildByVehicleId = async function (req, res, next) {
-    const inv_id = req.params.inventoryId
-    const response = await invModel.getInventoryByInventoryId(inv_id)
-    const buildArea = await utilities.buildVehicleInfo(response)
-    let nav = await utilities.getNav()
-    const vehicleName = response[0].inv_year + ' ' + response[0].inv_make + ' ' + response[0].inv_model
-    // console.log(vehicleName)
-    res.render("./inventory/inventory", {
-        title: vehicleName,
-        nav,
-        buildArea
-    })
+invController.buildByItemId = async function (req, res, next) {
+  const item_id = req.params.itemId
+  const isNumber = /^[0-9]+$/.test(item_id)
+  if (!isNumber) throw generateError("Wrong Item id in the URL. Should be a number.")
+
+  const data = await invModel.getItemById(item_id)
+  if (!data) throw generateError("Wrong URL. Check the item id.", 404)
+
+  const nav = await utilities.getNav(data.classification_id)
+  const detail = await utilities.buildDetailPage(data)
+
+  res.render("./inventory/detail", {
+    title: `${data.inv_make} ${data.inv_model}`,
+    nav,
+    detail
+  })
 }
 
-module.exports = invCont
+function generateError(errorText, code = 400) {
+  const statusText = code == 400 ? "Bad request" : code == 404 ? "Not found" : ""
+  const newError = new Error(errorText)
+  newError.code = code
+  newError.status = code + " " + statusText
+
+  return newError
+}
+
+module.exports = invController
