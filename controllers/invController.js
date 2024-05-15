@@ -1,66 +1,66 @@
 const invModel = require("../models/inventory-model");
-const Util = require("../utilities/");
+const utilities = require("../utilities/");
+
 const invCont = {};
 
-// Function to build the inventory by classification view
+/* ***************************
+ *  Build inventory by classification view
+ * ************************** */
 invCont.buildByClassificationId = async function (req, res, next) {
   try {
     const classification_id = req.params.classificationId;
-    const data = await invModel.getInventoryByClassificationId(classification_id);
-    
-    // Check if data is empty
-    if (data.length === 0) {
-      throw new Error("No data found for the given classification ID.");
-    }
-    
-    const grid = await Util.buildClassificationGrid(data);
-    let nav = await Util.getNav();
+
+    const data = await invModel.getInventoryByClassificationId(
+      classification_id
+    );
+
+    const grid = await utilities.buildClassificationGrid(data);
+    let nav = await utilities.getNav();
+
     const className = data[0].classification_name;
     res.render("./inventory/classification", {
-      title: className + " vehicles",
+      title: `${className} vehicles`,
       nav,
       grid,
     });
   } catch (error) {
-    next(error);
+    console.error("Error building classification view:", error);
+    res.status(500).send("Internal Server Error"); // or handle error in a meaningful way
   }
 };
 
-invCont.showVehicleDetail = async function(req, res, next) {
-  try {
-    const vehicleId = req.params.vehicleId;
-    const vehicle = await invModel.getInventoryItemById(vehicleId);
-
-    // Assuming vehicle includes 'attributes' property
-    let nav = await Util.getNav();
-    vehicle.inv_price = Number(vehicle.inv_price);
-    
-    // Assuming attributes is an object containing various vehicle attributes
-    const attributes = {
-      "Make": vehicle.inv_make,
-      "Model": vehicle.inv_model,
-      "Year": vehicle.inv_year,
-      "Price": vehicle.inv_price,
-      "Mileage": vehicle.inv_miles,
-      "Color": vehicle.inv_color,
-      "Description": vehicle.inv_description,
-      // Add more attributes as needed
-    };
-
-    res.render("./inventory/vehicleDetail", {
-      title: vehicle.inv_make + " " + vehicle.inv_model,
-      nav,
-      vehicle,
-      thumbnail: vehicle.inv_thumbnail, // Assuming thumbnail is stored in 'inv_thumbnail' property
-      makeAndModel: vehicle.inv_make + " " + vehicle.inv_model, // Construct makeAndModel property
-      image: vehicle.inv_image, // Pass the 'image' property
-      attributes: attributes // Pass the 'attributes' object
-    });    
-  } catch (error) {
-    next(error);
-  }
+/** *********************************
+ * Buildinventory by single vehicle view
+ *
+ * ************************************/
+// Define a function to handle building inventory by inventory ID
+invCont.buildByInvId = async function (req, res, next) {
+  const inv_id = req.params.invId;
+  const data = await invModel.getInventoryByInvId(inv_id);
+  const grid = await utilities.buildVehicleGrid(data);
+  let nav = await utilities.getNav();
+  const vehicleMake = data[0].inv_make;
+  const vehicleModel = data[0].inv_model;
+  const vehicleYear = data[0].inv_year;
+  // view -- vehicle.ejs
+  res.render("./inventory/vehicle", {
+    title: vehicleYear + " " + vehicleMake + " " + vehicleModel,
+    nav,
+    grid,
+  });
 };
+
+/* ***************************
+ *  Build intentional error view
+ * ************************** */
+invCont.buildBrokenPage = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  // view -- broken.ejs
+  res.render("./inventory/broken", {
+    title: 'Oops, error',
+    nav,
+  })
+}
+
 
 module.exports = invCont;
-
-
