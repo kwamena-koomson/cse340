@@ -1,30 +1,35 @@
-<div class="vehicle">
-    <div class="vehicle__container">
+<div class="vehicle-details">
+    <!-- Vehicle Title and Image -->
+    <div class="vehicle-title">
+        <h1><%= vehicle.inv_make %> <%= vehicle.inv_model %></h1>
+        <img src="<%= vehicle.inv_image %>" class="vehicle-image" alt="<%= vehicle.inv_make %> <%= vehicle.inv_model %>">
+    </div>    
     
-      <div class="vehicle__column vehicle__column_thumbnails">
-        <div class="vehicle__thumbnails-container">
-          <img class="vehicle__thumbnail" src="<%= thumbnail %>" alt="<%= makeAndModel %> - Thumbnail">
+    <div id="VDSlicer">
+        <!-- Vehicle Detail Subheading -->
+        <div class="vehicle-detail-heading">
+            <h2><%= vehicle.inv_make %> <%= vehicle.inv_model %> Details</h2>
         </div>
-      </div>
-  
-      <div class="vehicle__column vehicle__column_main-full">
-        <img src="<%= image %>" alt="<%= makeAndModel %>">
-      </div>
-      <div class="vehicle__column vehicle__column_text">
-        <ul class="vehicle__info-list">
-          <% for (const [key, value] of Object.entries(attributes)) { %>
-            <li class="vehicle__info">
-              <span class="bold"><%= key %>: </span><%= value %>
-            </li>
-          <% } %>
-          <li class="vehicle__info">
-            <span class="bold">VIN: </span>
-            <span>
-              <button class="vehicle__vin-btn" id="js-vin-btn">Reveal the VIN number</button>
-            </span>
-          </li>
-        </ul>
-      </div>
+        
+        <!-- Price -->
+        <div class="vehicle-detail">
+            <p><strong>Price:</strong> $<%= vehicle.inv_price.toLocaleString('en-US') %></p>
+        </div>
+        
+        <!-- Description -->
+        <div class="vehicle-detail">
+            <p><strong>Description:</strong> <%= vehicle.inv_description %></p>
+        </div>
+        
+        <!-- Color -->
+        <div class="vehicle-detail">
+            <p><strong>Color:</strong> <%= vehicle.inv_color %></p>
+        </div>
+        
+        <!-- Mileage -->
+        <div class="vehicle-detail">
+            <p><strong>Mileage</strong> <%= vehicle.inv_miles.toLocaleString('en-US') %></p>
+        </div>
     </div>
-  </div>
-  
+
+</div>

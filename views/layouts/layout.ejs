@@ -2,15 +2,16 @@
 <html lang="en">
 <%- include('../partials/head') %>
 
-  <body class="<%- typeof bodyClass !== 'undefined'? bodyClass : "" %>">
-    <div class="wrapper">
-      <%- include('../partials/header') %>
-        <%- include('../partials/navigation') %>
-          <main class="main">
-            <%- body %>
-          </main>
-          <%- include('../partials/footer') %>
-    </div>
-  </body>
+<body>
+  <div id="wrapper">
+    <%- include('../partials/header') %>
+    <%- include('../partials/navigation') %>
 
+    <main>
+        <%- body %>
+    </main>
+    
+    <%- include('../partials/footer') %>
+  </div>
+</body>
 </html>
