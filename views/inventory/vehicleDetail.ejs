@@ -1,0 +1,30 @@
+<div class="vehicle">
+    <div class="vehicle__container">
+    
+      <div class="vehicle__column vehicle__column_thumbnails">
+        <div class="vehicle__thumbnails-container">
+          <img class="vehicle__thumbnail" src="<%= thumbnail %>" alt="<%= makeAndModel %> - Thumbnail">
+        </div>
+      </div>
+  
+      <div class="vehicle__column vehicle__column_main-full">
+        <img src="<%= image %>" alt="<%= makeAndModel %>">
+      </div>
+      <div class="vehicle__column vehicle__column_text">
+        <ul class="vehicle__info-list">
+          <% for (const [key, value] of Object.entries(attributes)) { %>
+            <li class="vehicle__info">
+              <span class="bold"><%= key %>: </span><%= value %>
+            </li>
+          <% } %>
+          <li class="vehicle__info">
+            <span class="bold">VIN: </span>
+            <span>
+              <button class="vehicle__vin-btn" id="js-vin-btn">Reveal the VIN number</button>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  

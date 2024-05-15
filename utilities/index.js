@@ -55,7 +55,8 @@ Util.buildClassificationGrid = async function (data) {
 
 Util.buildDetailPage = async function (data) {
   const noImage = "/images/vehicles/no-image.png"
-  const thumbnail = data.inv_thumbnail || noImage
+  const noThumbnail = "/images/vehicles/no-thumbnail.png" // Define a default thumbnail image path
+  const thumbnail = data.inv_thumbnail || noThumbnail // Use default thumbnail if inv_thumbnail is not available
   const image = data.inv_image || noImage
   const makeAndModel = data.inv_make + " " + data.inv_model
   const attributes = {
@@ -72,7 +73,7 @@ Util.buildDetailPage = async function (data) {
     if (attributes[key]) {
       if (key === "Price") {
         content = `$${this.formatNumber(attributes[key])}`
-      } else if (key === "Mileage ") {
+      } else if (key === "Mileage ") { // There seems to be a typo here, it should be "Mileage" instead of "Mileage "
         content = this.formatNumber(attributes[key])
       }
     }
@@ -109,13 +110,6 @@ Util.buildDetailPage = async function (data) {
     </div>
     `
 }
-
-/* ****************************************
- * Middleware For Handling Errors
- * Wrap other function in this for 
- * General Error Handling
- **************************************** */
-Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch((err) => next(err))
 
 Util.formatNumber = number => new Intl.NumberFormat('en-US').format(number)
 

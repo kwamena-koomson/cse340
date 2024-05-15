@@ -3,9 +3,8 @@
  *************************/
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
-const { buildHome } = require("./controllers/baseController")
+const baseController = require("./controllers/baseController");
 const u = require("./utilities/")
-const env = require("dotenv").config()
 const session = require("express-session")
 const bodyParser = require("body-parser")
 const pool = require('./database/')
@@ -50,7 +49,7 @@ app.set("layout", "./layouts/layout") // not at views root
 app.use(require("./routes/static"))
 
 // Index route
-app.get("/", u.handleErrors(buildHome))
+app.get("/", baseController.buildHome);
 
 // Inventory routes
 app.use("/inv", require("./routes/inventoryRoute"))
@@ -65,29 +64,6 @@ app.use(async (req, res, next) => {
   next({ code: 404, message: 'Sorry, we appear to have lost that page.' })
 })
 
-/* ***********************
-* Express Error Handler
-* Place after all other middleware
-*************************/
-app.use(async (err, req, res, next) => {
-  const nav = await u.getNav()
-  let message
-
-  if (err.code == 404 || err.status == 404) {
-    message = err.message || "That page doesn't exist."
-    if (!err.status) err.status = "404 Not found"
-  } else if (err.code == 400) {
-    message = err.message || "Please, check the URL."
-  } else {
-    message = 'Oh no! There was a crash. Maybe try a different route?'
-  }
-
-  res.render("errors/error", {
-    title: err.status || '500 Server Error',
-    message,
-    nav
-  })
-})
 
 /* ***********************
  * Local Server Information
@@ -104,5 +80,5 @@ app.listen(port, (err) => {
     console.log(err)
     return
   }
-  console.log(`app listening on ${host}:${port}`)
+  console.log(`app listening on http://${host}:${port}`)
 })
