@@ -16,15 +16,18 @@ if (process.env.NODE_ENV === "development") {
   // Production or other environments
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    // Add SSL configurations for production environment if needed
+    ssl: {
+      // Add SSL configurations for production environment if needed
+      rejectUnauthorized: true, // Reject unauthorized connections
+    },
   });
 }
 
 /**
  * Executes an SQL query using the connection pool.
- * The first parameter is the SQL query string.
- * The second parameter is an array of optional parameters for the query.
- * Returns a Promise that resolves with the query result.
+ * @param {string} text The SQL query string.
+ * @param {Array} params Optional parameters for the query.
+ * @returns {Promise} A promise that resolves with the query result.
  */
 async function query(text, params) {
   try {
