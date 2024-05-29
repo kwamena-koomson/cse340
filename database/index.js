@@ -3,22 +3,19 @@ require("dotenv").config();
 
 let pool;
 
-// Validate NODE_ENV and set SSL options accordingly
+
 if (process.env.NODE_ENV === "development") {
-  // Development environment
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
-      rejectUnauthorized: false, // Accept self-signed certificates
+      rejectUnauthorized: false, 
     },
   });
 } else {
-  // Production or other environments
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
-      // Add SSL configurations for production environment if needed
-      rejectUnauthorized: true, // Reject unauthorized connections
+      rejectUnauthorized: true,
     },
   });
 }
@@ -40,5 +37,5 @@ async function query(text, params) {
   }
 }
 
-// Export the query function
+
 module.exports = { query };

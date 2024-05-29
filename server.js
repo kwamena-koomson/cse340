@@ -1,22 +1,33 @@
 /* ******************************************
- * This server.js file is the primary file of the 
+ * This server.js file is the primary file of the
  * application. It is used to control the project.
  *******************************************/
+const session = require("express-session")
+const pool = require('./database/')
+const cookieParser = require("cookie-parser")
+const bodyParser = require("body-parser");
 
 /* ***********************
  * Require Statements
  *************************/
-const session = require("express-session")
-const pool = require('./database/')
-const express = require("express")
-const expressLayouts = require("express-ejs-layouts")
-const env = require("dotenv").config()
-const app = express()
-const static = require("./routes/static")
-const baseController = require("./controllers/baseController")
-const inventoryRoute = require("./routes/inventoryRoute")
-const accountRoute = require('./routes/accountRoute')
-const bodyParser = require("body-parser")
+
+const express = require("express");
+const flash = require("connect-flash");
+const env = require("dotenv").config();
+const app = express();
+const static = require("./routes/static");
+const expressLayouts = require("express-ejs-layouts");
+const baseController = require(".//controllers/baseController");
+const inventoryRoute = require("./routes/inventoryRoute");
+const utilities = require("./utilities/");
+
+
+/* ***********************
+ * View Engine and Templates
+ *************************/
+app.set("view engine", "ejs");
+app.use(expressLayouts);
+app.set("layout", "./layouts/layout");
 
 
 /* ***********************
@@ -33,6 +44,7 @@ app.use(session({
   name: 'sessionId',
 }))
 
+
 // Express Messages Middleware
 app.use(require('connect-flash')())
 app.use(function(req, res, next){
@@ -40,45 +52,70 @@ app.use(function(req, res, next){
   next()
 })
 
+
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true })) 
 
 
 
-app.set("view engine", "ejs")
-app.use(expressLayouts)
-app.set("layout", "./layouts/layout") 
+app.use(cookieParser())
 
-app.use(static)
+app.use(utilities.checkJWTToken)
 
-// Routes
-// indexRoute
-app.get("/", baseController.buildHome)
+/* ***********************
+ * Routes
+ *************************/
+app.use(static);
+//Index Route
+// app.get("/", function (req, res) {
+//   res.render("index.ejs", { title: "Home" });
+// });
+app.get("/", utilities.handleErrors(baseController.buildHome));
 
-// inventoryRoute
-app.use("/inv", inventoryRoute)
+//Inventory Route
+app.use("/inv", inventoryRoute);
 
-// accountRoute
-app.use("/account", accountRoute)
+// account route
+app.use("/account", require("./routes/accountRoute"));
 
-// errorRoute
-app.get('/trigger-error', baseController.triggerError);
 
-app.use(function(err, req, res, next) {
-  console.error(err.stack);
-  res.status(500).render('error', { error: err });
+app.use(async (req, res, next) => {
+  next({ status: 404, message: "Apologies, it seems we've lost that page" });
+});
+
+
+/* ***********************
+ * Express Error Handler
+ * Place after all other middleware
+ *************************/
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav();
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`);
+  if (err.status == 404) {
+    message = err.message;
+  } else {
+    message =
+      "Oops! This page seems to have vanished. Let's work together to track it down";
+  }
+  res.render("errors/error", {
+    title: err.status || "Server Error",
+    message,
+    nav,
+  });
 });
 
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file
  *************************/
-const port = process.env.PORT
-const host = process.env.HOST
+const port = /*5555;*/ process.env.PORT ||5555;
+const host = /*'localhost';*/ process.env.HOST;
 
 /* ***********************
  * Log statement to confirm server operation
  *************************/
 app.listen(port, () => {
-  console.log(`app listening on ${host}:${port}`)
-})
+  console.log(`app listening on ${host}:${port}`);
+});
+
+

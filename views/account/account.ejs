@@ -1,0 +1,37 @@
+<!-- Adds h1 for good SEO and a heading for the page -->
+<% if (title) { %>
+  <h1>
+    <%= title %>
+  </h1>
+<% } else { res.redirect('/') } %>
+
+<!-- Displays messages -->
+<%- messages() %>
+
+<!-- Display errors -->
+<% if (errors) { %>
+  <ul class="notice">
+      <% errors.array().forEach(error=> { %>
+          <li>
+              <%= error.msg %>
+          </li>
+      <% }) %>
+  </ul>
+<% } %>
+
+<% let account=locals.accountData %>
+<% if (locals.loggedin) { %>
+  <!-- Welcome message for logged-in users -->
+  <h2>Welcome <%= locals.accountData.account_firstname %></h2>
+  <!-- Links for managing account information -->
+  <div class="management-links">
+      <a href="/account/edit/<%= locals.accountData.account_id %>">Manage Your Account Information</a>
+  </div>
+  <!-- Inventory management links for Employees and Admins -->
+  <% if (locals.accountData.account_type == "Employee" || locals.accountData.account_type == "Admin") { %>
+      <h3>Inventory Management</h3>
+      <div class="management-links">
+          <a href="/inv/">Manage inventory</a>
+      </div>
+  <% } %>
+<% } %>

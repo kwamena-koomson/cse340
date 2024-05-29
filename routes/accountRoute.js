@@ -1,20 +1,70 @@
-// Needed Resources 
-const express = require("express");
-const router = express.Router();
-const utilities = require("../utilities");
-const accountController = require("../controllers/accountController"); // Updated import statement
-const regValidate = require('../utilities/account-validation');
+const express = require("express")
+const router = new express.Router() 
+const accountController = require("../controllers/accountController")
+const { handleErrors } = require("../utilities")
+const regValidate = require('../utilities/account-validation')
+const Util = require("../utilities"); 
 
-// Route to handle "My Account" link click
-router.get("/login", utilities.handleErrors(accountController.buildLogin));
-router.get('/register', utilities.handleErrors(accountController.buildRegister));
+router.get("/", Util.checkLogin, handleErrors(accountController.buildAccount));
+
+
+// Route to build default account view
+router.get("/account", Util.checkLogin, handleErrors(accountController.buildAccount));
+
+
+// Route to build account login view
+router.get("/login", handleErrors(accountController.buildLogin));
+
+
+// Process the login attempt
+router.post(
+  "/login",
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  handleErrors(accountController.accountLogin)
+)
+
+
+// Route to build account register view
+router.get("/register", handleErrors(accountController.buildRegister));
+
 
 // Process the registration data
 router.post(
-    "/register",
-    regValidate.registationRules(),
-    regValidate.checkRegData,
-    utilities.handleErrors(accountController.registerAccount)
+  "/register",
+  regValidate.registationRules(),
+  regValidate.checkRegData,
+  handleErrors(accountController.registerAccount)
 );
 
-module.exports = router;
+
+// Route to build account login view
+router.get("/edit/:account_id", handleErrors(accountController.buildEditAccount));
+
+
+// Process the updated account information
+router.post(
+  "/accountupdate",
+  regValidate.updateAccountRules(),
+  regValidate.checkEditAccountData,
+  handleErrors(accountController.editAccountInfo)
+)
+
+
+// Process the account password change
+router.post(
+  "/changepassword",
+  regValidate.changePasswordRules(),
+  regValidate.checkEditAccountData,
+  handleErrors(accountController.editAccountPassword)
+)
+
+
+router.get(
+  "/logout",
+  handleErrors(accountController.logoutAccount),
+)
+
+
+
+module.exports = router

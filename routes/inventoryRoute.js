@@ -1,30 +1,81 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const invController = require('../controllers/invController'); // replace with the actual path to your file
-const utilities = require("../utilities/");
-const validate = require('../utilities/validation');
-
-router.get("/type/:classificationId", invController.buildByClassificationId);
-router.get("/detail/:inventoryId", invController.buildByInventoryId);
+const invController = require("../controllers/invController");
+const { handleErrors, } = require("../utilities");
+const invValidate = require("../utilities/inventory-validation");
+const utilities = require("../utilities");
 
 
-router.get("/", invController.buildManager);
-
-
-router.get("/add-classification", invController.buildAddClassification);
-router.get("/add-inventory", invController.buildAddInventory);
-
-router.post(
-    '/add-inventory',
-    validate.invRules(),
-    validate.invCheck,
-    utilities.handleErrors(invController.addInventory)
+// Route to build inventory by classification view
+router.get(
+  "/type/:classificationId",
+  handleErrors(invController.buildByClassificationId)
 );
 
-router.post(
-    '/add-classification',
-    validate.regRules(),
-    validate.checkData,
-    utilities.handleErrors(invController.addClassification)
+
+router.get(
+  "/", 
+  utilities.checkAuthorization,
+  handleErrors(invController.buildManagement)
+)
+
+//Route to build inventory by vehicle view
+router.get("/detail/:invId", handleErrors(invController.buildByInvId));
+
+// Build edit vehicle information view
+router.get("/edit/:inv_id", utilities.checkAuthorization, handleErrors(invController.buildVehicleEdit));
+
+// Build inventory management table inventory view
+router.get(
+  "/getInventory/:classification_id",
+  utilities.handleErrors(invController.getInventoryJSON)
 );
+
+// Ruta para construir el índice de inventario
+router.get("/", handleErrors(invController.buildManagementView));
+
+// Route to build add classification view
+router.get("/addclass", utilities.checkAuthorization, handleErrors(invController.buildAddclass));
+
+// Route to build add vehicle view
+router.get("/addvehicle", utilities.checkAuthorization, handleErrors(invController.buildAddvehicle));
+
+// Process the new classification data
+router.post(
+  "/addclass",
+  utilities.checkAuthorization,
+  invValidate.classRules(),
+  invValidate.checkClassData,
+  handleErrors(invController.addClass)
+);
+
+// Process the new vehicle data
+router.post(
+  "/addvehicle",
+  invValidate.vehicleRules(),
+  invValidate.checkVehicleData,
+  handleErrors(invController.addVehicle)
+);
+
+// Process the update vehicle data
+router.post(
+  "/update",
+  invValidate.vehicleRules(),
+  invValidate.checkVehicleData,
+  handleErrors(invController.updateVehicle)
+);
+
+// Build vehicle deletion confirmation view
+router.get("/delete/:inv_id", utilities.checkAuthorization, handleErrors(invController.buildVehicleDeleteConfirm))
+
+// Post route /delete
+router.post(
+  "/delete",
+  utilities.checkAuthorization, 
+  handleErrors(invController.deleteVehicle)
+)
+
+// Route to show the error page 500
+router.get("/broken", handleErrors(invController.buildBrokenPage));
+
 module.exports = router;
