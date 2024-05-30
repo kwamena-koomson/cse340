@@ -19,16 +19,16 @@
   <p>* All fields are required</p>
   <fieldset class="form--fieldset register-form--fieldset"> 
     <label for="account_firstname">Name:</label>
-    <input type="text" name="account_firstname" id="account_firstname" placeholder="Introduce tu nombre" value="<%= locals.account_firstname %>" pattern="^[A-Za-z0-9\-']+$" autofocus required>
+    <input type="text" name="account_firstname" id="account_firstname" placeholder="Enter your first name" value="<%= locals.account_firstname %>" pattern="^[A-Za-z0-9\-']+$" autofocus required>
 
     <label for="account_lastname">Last Name:</label>
-    <input type="text" name="account_lastname" id="account_lastname" placeholder="Introduce tu apellido" value="<%= locals.account_lastname %>" pattern="^[A-Za-z0-9\-']+$" required>
+    <input type="text" name="account_lastname" id="account_lastname" placeholder="Enter your last Name" value="<%= locals.account_lastname %>" pattern="^[A-Za-z0-9\-']+$" required>
 
     <label for="account_email">Email:</label>
-    <input type="email" name="account_email" id="account_email" placeholder="Introduce tu correo" value="<%= locals.account_email %>" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+.\.[a-zA-Z]{2,}$" required>
+    <input type="email" name="account_email" id="account_email" placeholder="Enter your email address" value="<%= locals.account_email %>" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+.\.[a-zA-Z]{2,}$" required>
 
     <label for="account_password">Password:</label>
-    <input type="password" name="account_password" id="account_password" placeholder="Elige una contraseña segura" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
+    <input type="password" name="account_password" id="account_password" placeholder="choose a strong password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
     <p>*Passwords should be at least 12 characters long and contain at least one uppercase letter, one number, and one special character.
     </p>
 
