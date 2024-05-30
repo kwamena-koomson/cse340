@@ -3,20 +3,15 @@ require("dotenv").config();
 
 let pool;
 
-
 if (process.env.NODE_ENV === "development") {
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false, 
-    },
+    ssl: false, // Disable SSL for development
   });
 } else {
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: true,
-    },
+    ssl: false, // Disable SSL for production as well
   });
 }
 
@@ -36,6 +31,5 @@ async function query(text, params) {
     throw error;
   }
 }
-
 
 module.exports = { query };
