@@ -1,39 +1,25 @@
-<% if (title) { %>
-  <h1><%= title %></h1>
-<% } else {
-  res.redirect('/')
-} %>
+<% if (title){ %>
+    <h1><%= title %></h1>
+<% } else { %>
+    <%- res.redirect("/") %>
+<% } %>
 
 <%- messages() %>
 
-<% if (errors && errors.length > 0) { %>
-  <ul class="notice">
- <% errors.array().forEach(error => { %>
-   <li><%= error.msg %></li>
-<% }) %>
- </ul>
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
 <% } %>
 
-<!-- Show page content -->
-<form class="form register-form" action="/account/register" method="post">
-  <p>* All fields are required</p>
-  <fieldset class="form--fieldset register-form--fieldset"> 
-    <label for="account_firstname">Name:</label>
-    <input type="text" name="account_firstname" id="account_firstname" placeholder="Enter your first name" value="<%= locals.account_firstname %>" pattern="^[A-Za-z0-9\-']+$" autofocus required>
-
-    <label for="account_lastname">Last Name:</label>
-    <input type="text" name="account_lastname" id="account_lastname" placeholder="Enter your last Name" value="<%= locals.account_lastname %>" pattern="^[A-Za-z0-9\-']+$" required>
-
-    <label for="account_email">Email:</label>
-    <input type="email" name="account_email" id="account_email" placeholder="Enter your email address" value="<%= locals.account_email %>" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+.\.[a-zA-Z]{2,}$" required>
-
-    <label for="account_password">Password:</label>
-    <input type="password" name="account_password" id="account_password" placeholder="choose a strong password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
-    <p>*Passwords should be at least 12 characters long and contain at least one uppercase letter, one number, and one special character.
-    </p>
-
-    <input type="submit" value="Regíster">
-  </fieldset>
-  <p>Do you already have an account?<a href="/account/login">Log in</a></p> 
-</form> 
-<script src="/js/script.js"></script>
+<form action="/account/register" method="post" id="registerForm">
+    <label>First Name:<input type="text" name="account_firstname" id="accountFirstname" required value="<%= locals.account_firstname %>"></label>
+    <label>Last Name:<input type="text" name="account_lastname" id="account_lastname" required value="<%= locals.account_lastname %>"></label>
+    <label>Email:<input type="email" name="account_email" id="account_email" required value="<%= locals.account_email %>"></label>
+    <span>Passwords must be at least 12 characters long and include at least one number, one uppercase letter, and one special character</span>
+    <label>Password:<input type="password" name="account_password" id="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required></label>
+    <button type="submit" id="loginButton">Register</button>
+    <p>I already have an Registered Account<a href="/account/login">Sign-in</a></p>
+</form>

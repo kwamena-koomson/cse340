@@ -1,0 +1,31 @@
+<% if (title){ %>
+    <h1><%= title %></h1>
+<% } else { %>
+    <%- res.redirect("/") %>
+<% } %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<h2>Update Personal Detail</h2>
+<form action="/account/update" method="post" id="registerForm"> 
+    <label>First Name:<input type="text" value="<%- locals.accountData.account_firstname %>" name="account_firstname" id="accountFirstname" required></label>
+    <label>Last Name:<input type="text" value="<%- locals.accountData.account_lastname %>" name="account_lastname" id="account_lastname" required></label>
+    <label>Email:<input type="email" value="<%- locals.accountData.account_email %>" name="account_email" id="account_email" required></label>
+    <button type="submit">Update</button>
+</form> 
+
+<h2>Update Password</h2>
+<form action="/account/update" method="post" id="registerForm"> 
+    <span>*Note the Original Password will be changed</span>
+    <label>Password:<input type="password" name="account_password" id="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required></label>
+    <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
+    <button type="submit">Change Password</button>
+</form> 

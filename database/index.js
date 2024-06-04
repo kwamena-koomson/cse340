@@ -1,47 +1,38 @@
 const { Pool } = require("pg");
 require("dotenv").config();
-
+/* ***************
+ * Connection Pool
+ * SSL Object needed for local testing of app
+ * But will cause problems in production environment
+ * If - else will make determination which to use
+ * *************** */
 let pool;
+if (process.env.NODE_ENV == "development") {
+        pool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+        // when we work in a remote production server, the ssl lines must not exist.
+        ssl: {
+        rejectUnauthorized: false,
+        },
+});
 
-if (process.env.NODE_ENV === "development") {
-  pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false, // Accept self-signed certificates
-    },
-    connectionTimeoutMillis: 5000, // Increase timeout to 5 seconds
-  });
-} else {
-  pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false, // Accept self-signed certificates for production as well
-    },
-    connectionTimeoutMillis: 5000, // Increase timeout to 5 seconds
-  });
-}
-
-/**
- * Executes an SQL query using the connection pool.
- * @param {string} text The SQL query string.
- * @param {Array} params Optional parameters for the query.
- * @returns {Promise} A promise that resolves with the query result.
- */
-async function query(text, params) {
-  try {
-    console.log("Executing query:", { text, params });
+  // Added for troubleshooting queries
+  // during development
+module.exports = {
+async query(text, params) {
+    try {
     const res = await pool.query(text, params);
-    console.log("Executed query successfully:", { text });
+    console.log("executed query", { text });
     return res;
-  } catch (error) {
-    console.error("Error in query execution:", {
-      text,
-      params,
-      errorMessage: error.message,
-      stack: error.stack,
-    });
+    } catch (error) {
+    console.error("error in query", { text });
     throw error;
-  }
+    }
+},
+};
+} else {
+    pool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+    });
+    module.exports = pool;
 }
-
-module.exports = { query };

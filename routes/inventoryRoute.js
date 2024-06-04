@@ -1,81 +1,70 @@
-const express = require("express");
-const router = express.Router();
-const invController = require("../controllers/invController");
-const { handleErrors, } = require("../utilities");
-const invValidate = require("../utilities/inventory-validation");
-const utilities = require("../utilities");
+// Needed Resources 
+const express = require("express"); 
+const router = new express.Router(); 
+const invController = require("../controllers/invController"); 
+const utilities = require("../utilities"); 
+const classValidate = require('../utilities/management-validation'); 
 
+/***********************
+ * Get section
+************************/
 
-// Route to build inventory by classification view
-router.get(
-  "/type/:classificationId",
-  handleErrors(invController.buildByClassificationId)
+// Route to display the management page
+router.get("/", invController.buildManagement);
+
+// Route to build the ability to add a classification
+router.get("/add-classification", invController.buildAddClassification);
+
+// Route to add the ability to add inventory
+router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory));
+
+// Route to handle requests for building inventory by classification
+router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
+
+// Route to handle requests for building a single inventory page
+router.get("/detail/:singleViewId",utilities.handleErrors(invController.BuildSinglePageId));
+
+// Route to trigger intentional error
+router.get("/serverError", utilities.handleErrors(invController.serverError));
+
+// Route to get inventory data in JSON format
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
+
+// Route to update an item in the inventory
+router.get("/edit/:inventoryId", utilities.handleErrors(invController.editInventory));
+
+// Route to delete an item in the inventory
+router.get("/delete/:inventoryId", utilities.handleErrors(invController.deleteItem));
+
+/*****************************
+ * Post Section
+ * ***************************/ 
+
+// Route to process adding a classification
+router.post(
+    "/add-classification",
+    classValidate.classificationRules(), 
+    classValidate.checkClassificationData, 
+    utilities.handleErrors(invController.addClassification)
 );
 
+// Route to process adding inventory
+router.post(
+    "/add-inventory", 
+    classValidate.inventoryRules(), 
+    classValidate.checkInventoryData,
+    utilities.handleErrors(invController.addVehicle)
+);
 
-router.get(
-  "/", 
-  utilities.checkAuthorization,
-  handleErrors(invController.buildManagement)
+// Route to process updating inventory
+router.post("/update/", utilities.handleErrors(invController.updateInventory));
+
+// Route to process deleting inventory
+router.post("/delete/", utilities.handleErrors(invController.deleteInventory));
+
+//route to add review to the inventory
+router.post("/add-review",
+    utilities.handleErrors(invController.addReview)
 )
 
-//Route to build inventory by vehicle view
-router.get("/detail/:invId", handleErrors(invController.buildByInvId));
-
-// Build edit vehicle information view
-router.get("/edit/:inv_id", utilities.checkAuthorization, handleErrors(invController.buildVehicleEdit));
-
-// Build inventory management table inventory view
-router.get(
-  "/getInventory/:classification_id",
-  utilities.handleErrors(invController.getInventoryJSON)
-);
-
-// Ruta para construir el índice de inventario
-router.get("/", handleErrors(invController.buildManagementView));
-
-// Route to build add classification view
-router.get("/addclass", utilities.checkAuthorization, handleErrors(invController.buildAddclass));
-
-// Route to build add vehicle view
-router.get("/addvehicle", utilities.checkAuthorization, handleErrors(invController.buildAddvehicle));
-
-// Process the new classification data
-router.post(
-  "/addclass",
-  utilities.checkAuthorization,
-  invValidate.classRules(),
-  invValidate.checkClassData,
-  handleErrors(invController.addClass)
-);
-
-// Process the new vehicle data
-router.post(
-  "/addvehicle",
-  invValidate.vehicleRules(),
-  invValidate.checkVehicleData,
-  handleErrors(invController.addVehicle)
-);
-
-// Process the update vehicle data
-router.post(
-  "/update",
-  invValidate.vehicleRules(),
-  invValidate.checkVehicleData,
-  handleErrors(invController.updateVehicle)
-);
-
-// Build vehicle deletion confirmation view
-router.get("/delete/:inv_id", utilities.checkAuthorization, handleErrors(invController.buildVehicleDeleteConfirm))
-
-// Post route /delete
-router.post(
-  "/delete",
-  utilities.checkAuthorization, 
-  handleErrors(invController.deleteVehicle)
-)
-
-// Route to show the error page 500
-router.get("/broken", handleErrors(invController.buildBrokenPage));
-
-module.exports = router;
+module.exports = router; 

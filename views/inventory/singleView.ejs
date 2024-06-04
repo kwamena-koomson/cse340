@@ -1,0 +1,29 @@
+<% if (title) {%>
+    <h1><%= title %></h1>
+<% } else{ 
+    res.redirect("/")
+}%>
+
+<%- messages() %>
+
+<%- singleView %>
+
+<h3>Customer Reviews</h3>
+
+<%- reviews %>
+
+<h4>Add your own review</h4>
+<% if (locals.accountData && (locals.accountData.account_type === "Client")) {%>
+    <form action="/inv/add-review"  method="post" id="vehicleForm">
+        <label>Screen Name: <input type="text" name="account_firstname" value="<%- locals.accountData.account_firstname %>" readonly required></label>
+        <label>Review<textarea type="text" name="review_description" required></textarea></label>
+        
+        <input type="hidden" name="inv_id" value="<%- inv_id %>">
+
+        <input type="hidden" name="account_id" value="<%- locals.accountData.account_id %>">
+
+        <button type="submit">Submit Review</button>
+    </form>
+<% } else { %>
+    <p> You must <a href="/account/login">login</a> to write a review</p>
+<% }%>

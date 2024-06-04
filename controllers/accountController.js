@@ -1,304 +1,266 @@
-
-
+const utilities = require("../utilities"); 
 const accountModel = require("../models/account-model"); 
-const utilities = require("../utilities/"); 
 const bcrypt = require("bcryptjs"); 
 const jwt = require("jsonwebtoken"); 
-require("dotenv").config(); 
+const { cookie } = require("express-validator");
+const cookieParser = require("cookie-parser");
+require ("dotenv").config(); 
 
-// Render the login page
+// Function to render the login view
 async function buildLogin(req, res, next) {
-  let nav = await utilities.getNav(); 
-  res.render("account/login", {
-    title: "Login", 
-    nav, 
-    errors: null, 
-  });
-}
-
-/* ****************************************
- *  Process Login request
- * *************************************** */
-async function loginAccount(req, res) {
-  let nav = await utilities.getNav(); 
-  const { account_email, account_password } = req.body; 
-
-  // Hash the password before storing
-  let hashedPassword;
-  try {
-    hashedPassword = await bcrypt.hashSync(account_password, 10);
-  } catch (error) {
-    req.flash(
-      "notice",
-      "Apologies, an error occurred while processing your registration."
-    );
-    res.status(500).render("account/register", {
-      title: "Registration",
-      nav,
-      errors: null,
-    });
-  }
-
-  // Attempt to log in the user with the hashed password
-  const regResult = await accountModel.loginAccount(
-    account_email,
-    hashedPassword
-  );
-
-
-  if (regResult) {
-    req.flash("success", "You're logged in!");
-    res.status(201).render("account/login", {
-      title: "Login",
-      nav,
-      errors: null,
-    });
-  } else {
-    req.flash("error", "Login failed.");
-    // If login fails, render the login page with an error message
-    res.status(501).render("account/login", {
-      title: "Login",
-      nav,
-      errors: null,
-    });
-  }
-}
-
-// Render the registration page
-async function buildRegister(req, res, next) {
-  let nav = await utilities.getNav(); 
-  res.render("account/register", {
-    title: "Register", 
-    nav, 
-    errors: null, 
-  });
-}
-
-/* ****************************************
- *  Process Registration
- * *************************************** */
-async function registerAccount(req, res, next) {
-  try {
     let nav = await utilities.getNav(); 
-    const {
-      account_firstname,
-      account_lastname,
-      account_email,
-      account_password,
-    } = req.body; 
+    res.render("account/login", {
+        title: "Login",
+        nav,
+        errors: null,
+    })
+}
 
-    const hashedPassword = await bcrypt.hash(account_password, 10);
-
-    // Register the account
-    const regResult = await accountModel.registerAccount(
-      account_firstname,
-      account_lastname,
-      account_email,
-      hashedPassword
-    );
-
-    if (regResult.rowCount) {
-      req.flash(
-        "success",
-        `Congratulations, you're registered ${account_firstname}. Please log in.`
-      );
-      return res.status(201).redirect("/account/account");
-    } else {
-      req.flash("error", "Unfortunately, the registration was unsuccessful.");
-      return res.status(500).render("account/register", {
+// Function to render the registration view
+async function buildRegister(req, res, next) {
+    let nav = await utilities.getNav(); 
+    // Rendering the registration view template with title, navigation data, and no errors
+    res.render("account/register", {
         title: "Register",
         nav,
         errors: null,
-      });
-    }
-  } catch (error) {
-    next(error); 
-  }
+    })
 }
 
-
-async function accountLogin(req, res) {
-  let nav = await utilities.getNav(); 
-  const { account_email, account_password } = req.body; 
-  const accountData = await accountModel.getAccountByEmail(account_email); 
-  if (!accountData) {
-    req.flash("notice", "Please verify your credentials and try again.");
-    res.status(400).render("account/login", {
-      title: "Login",
-      nav,
-      errors: null,
-      account_email,
-    });
-    return;
-  }
-  try {
-    if (await bcrypt.compare(account_password, accountData.account_password)) {
-      delete accountData.account_password; 
-      const accessToken = jwt.sign(
-        accountData,
-        process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: 3600 } 
-      );
-      if (process.env.NODE_ENV === "development") {
-        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
-      } else {
-        res.cookie("jwt", accessToken, {
-          httpOnly: true,
-          secure: true,
-          maxAge: 3600 * 1000,
-        });
-      }
-      return res.redirect("/account/account"); 
-    }
-  } catch (error) {
-    return new Error("Access Forbidden");
-  }
-}
-
-
-
-
-async function buildAccount(req, res, next) {
-  try {
+// Function to render the account view
+async function buildAccount(req, res, next){
     let nav = await utilities.getNav(); 
+    const account_id = res.locals.accountData.account_id;
+    const data = await accountModel.getInventoryByReview(account_id);
+    const MyReviews = await utilities.manageReviews(data);
+    // Rendering the account view template with title, navigation data, and no errors
     res.render("account/account", {
-      title: "Account", 
-      nav, 
-      errors: null, 
-    });
-  } catch (error) {
-    next(error); 
-  }
+        title: "Account Management",
+        nav,
+        errors: null,
+        MyReviews,
+    })
 }
 
+// Function to process login request
+async function accountLogin(req, res) {
+    let nav = await utilities.getNav(); 
+    const { account_email, account_password } = req.body; 
+    // Retrieving account data from database based on email
+    const accountData = await accountModel.getAccountByEmail(account_email);
+    // Checking if account data exists
+    if (!accountData) {
+        // Flashing an error message and rendering the login view with the provided email and no errors
+        req.flash("notice", "Please check your credentials and try again.");
+        res.status(400).render("account/login", {
+            title: "Login",
+            nav,
+            errors: null,
+            account_email,
+        });
+        return;
+    }
+    try {
+        // Comparing the provided password with the hashed password in the database
+        if (await bcrypt.compare(account_password, accountData.account_password)) {
+            // Deleting the password from the account data
+            delete accountData.account_password;
+            // Generating an access token
+            const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 });
+            // Setting the token in a cookie
+            if(process.env.NODE_ENV === 'development') {
+                res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
+            } else {
+                res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 });
+            }
+            // Redirecting to the account page
+            return res.redirect("/account/");
+        }
+    } catch (error) {
+        // Handling error if password comparison fails
+        return new Error('Access Forbidden');
+    }
+}
 
-async function buildEditAccount(req, res, next) {
-  try {
-    const nav = await utilities.getNav(); 
-    const { account_firstname, account_lastname, account_email } = res.locals.accountData; 
-    const account_id = parseInt(req.params.account_id, 10); 
-    console.log("Building edit account view for account ID:", account_id);
+// Function to process registration
+async function registerAccount(req, res) {
+    let nav = await utilities.getNav(); // Getting navigation data
+    const { account_firstname, account_lastname, account_email, account_password } = req.body; 
     
-    res.render("account/editaccount", {
-      title: "Edit Account Information", 
-      nav, 
-      errors: null, 
-      account_firstname, 
-      account_lastname, 
-      account_email, 
-      account_id, 
-    });
-  } catch (error) {
-    next(error); 
-  }
-}
+    let hashedPassword;
+    
+    try {
+        // Hashing the password before storing
+        hashedPassword = await bcrypt.hashSync(account_password, 10); 
+    } catch (error) {
+        // Handling error if password hashing fails
+        req.flash("notice", 'Sorry, there was an error processing the registration.');
+        res.status(500).render("account/register", {
+            title: "Registration",
+            nav,
+            errors: null,
+        });
+    }
 
-
-async function editAccountInfo(req, res) {
-  let nav = await utilities.getNav(); 
-  const { account_firstname, account_lastname, account_email, account_id } =
-    req.body; 
-
-  // Update account info in the database
-  const regResult = await accountModel.updateAccountInfo(
-    account_firstname,
-    account_lastname,
-    account_email,
-    account_id
-  );
-  if (regResult) {
-    res.clearCookie("jwt");
-    const accountData = await accountModel.getAccountById(account_id);
-    const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: 3600 * 1000,
-    });
-    res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
-
-    req.flash(
-      "success",
-      `Congratulations, ${account_firstname} you have successfully updated your account info.`
+    // Registering the account with hashed password
+    const regResult = await accountModel.registerAccount(
+        account_firstname,
+        account_lastname,
+        account_email,
+        hashedPassword
     );
-    res.status(201).render("account/account", {
-      title: "Edit Account Information",
-      nav,
-      errors: null,
-      account_firstname,
-      account_lastname,
-      account_email,
-    });
-  } else {
-    req.flash("error", "Sorry, the update failed.");
-    res.status(501).render("account/editaccount", {
-      title: "Edit Account Information",
-      nav,
-      errors: null,
-      account_firstname: account_firstname,
-      account_lastname: account_lastname,
-      account_email: account_email,
-    });
-  }
+
+    if (regResult) {
+        // Flashing success message and rendering the login view on successful registration
+        req.flash(
+            "notice",
+            `Congratulations, you're registered ${account_firstname}. Please log in.`
+        );
+        res.status(201).render("account/login", {
+            title: "Login",
+            nav,
+            errors: null,
+        });
+    } else {
+        // Flashing error message and rendering the registration view on failed registration
+        req.flash("notice", "Sorry, the registration failed.");
+        res.status(501).render("account/register", {
+            title: "Registration",
+            nav,
+        });
+    }
 }
 
-
-async function editAccountPassword(req, res) {
-  let nav = await utilities.getNav(); 
-  const { account_password, account_id } = req.body; 
-
-  let hashedPassword;
-  try {
-    hashedPassword = await bcrypt.hash(account_password, 10);
-  } catch (error) {
-    req.flash
-
-("notice", 'Sorry, there was an error processing the registration.');
-    return res.status(500).render("account/editaccount", {
-      title: "Edit Account Information",
-      nav,
-      errors: null,
-    });
-  }
-
-  // Update the password in the database
-  const regResult = await accountModel.changeAccountPassword(hashedPassword, account_id);
-
-  if (regResult) {
-    const account = await accountModel.getAccountById(account_id);
-    req.flash("success", `Congratulations, ${account.account_firstname}, you have successfully updated your account info.`);
-    return res.status(201).render("account/account", {
-      title: "Account Information",
-      nav,
-      errors: null,
-      account_firstname: account.account_firstname,
-    });
-  } else {
-    const account = await accountModel.getAccountById(account_id);
-    req.flash("error", "Sorry, the update failed.");
-    // If update fails, render the edit account page with an error message
-    return res.status(501).render("account/editaccount", {
-      title: "Edit Account Information",
-      nav,
-      errors: null,
-    });
-  }
+async function buildUpdateAccount(req, res){
+    let nav = await utilities.getNav();
+    
+    res.render("account/edit-account",{
+        title: "Edit Account",
+        nav,
+        errors: null,
+    })
 }
 
+async function updateAccount(req, res){
+    const {account_firstname, account_lastname, account_email, account_password} = req.body;
+    const account_id = parseInt(res.locals.accountData.account_id);
+    let accountData = "";
+    if (!account_password){
+        const updateResult = await accountModel.updateAccount(
+            account_firstname, 
+            account_lastname, 
+            account_email,
+            account_id,
+        )
 
+        if(updateResult){
 
-async function logoutAccount(req, res, next) {
-  res.clearCookie("jwt"); 
-  res.redirect("/"); 
-  return;
+            req.flash(
+                "notice",
+                `Congratulations, your information has been updated.`
+            );
+            accountData = await accountModel.getAccountByEmail(account_email);
+        }
+
+    }else{
+        // Comparing the provided password with the hashed password in the database
+        let hashedPassword = await bcrypt.hashSync(account_password, 10);
+        const updateResult = await accountModel.updatePassword(hashedPassword, account_id);
+        if(updateResult){
+
+            req.flash(
+                "notice",
+                `Congratulations, your information has been updated.`
+            );
+            accountData = updateResult;
+        }
+    }
+
+        const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET);
+        // Setting the token in a cookie
+        if(process.env.NODE_ENV === 'development') {
+            res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
+        } else {
+            res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 });
+        }
+    res.redirect("/account");
 }
 
-module.exports = {
-  buildLogin,
-  buildRegister,
-  registerAccount,
-  loginAccount,
-  accountLogin,
-  buildAccount,
-  buildEditAccount,
-  editAccountInfo,
-  editAccountPassword,
-  logoutAccount
-};
+async function logout(req, res, next){
+    res.clearCookie('jwt');
+    res.redirect("/");
+}
+
+async function editReview(req, res, next){
+    let nav = await utilities.getNav();
+    const inv_id = parseInt(req.params.inv_id)
+    const account_id = res.locals.accountData.account_id;
+    const getReview = await accountModel.getReview(account_id,inv_id);
+    const reviewText = getReview[0].review_text;
+    const review_id = getReview[0].review_id;
+    const vehicleName = `${getReview[0].inv_year} ${getReview[0].inv_make} ${getReview[0].inv_model}`;
+    const date = Date();
+    res.render("account/update-review", {
+        title: "Edit " + vehicleName,
+        nav,
+        inv_id,
+        review_id,
+        date,
+        reviewText,
+        errors: null,
+    })
+}
+
+async function UpdateReview(req, res, next){
+    const {review_text, review_id} = req.body;
+    const review_date = new Date();
+    const data = await accountModel.UpdateReview(review_text, review_date, review_id)
+    if (data){
+        res.redirect("/account")
+    }else{
+        console.log("there is a problem with the updateReview query");
+    }
+}
+
+async function deleteReview(req, res, next){
+    let nav = await utilities.getNav();
+    const inv_id = parseInt(req.params.inv_id)
+    const account_id = res.locals.accountData.account_id;
+    const getReview = await accountModel.getReview(account_id,inv_id);
+    const reviewText = getReview[0].review_text;
+    const review_id = getReview[0].review_id;
+    const vehicleName = `${getReview[0].inv_year} ${getReview[0].inv_make} ${getReview[0].inv_model}`;
+    const date = Date();
+    res.render("account/delete-review", {
+        title: "Delete " + vehicleName,
+        nav,
+        inv_id,
+        review_id,
+        date,
+        reviewText,
+        errors: null,
+    })
+}
+async function DeleteReviewConfirm(req, res, next){
+    const {review_id} = req.body;
+    const data = await accountModel.deleteReview(review_id)
+    if (data){
+        res.redirect("/account")
+    }else{
+        console.log("there is a problem with the updateReview query");
+    }
+}
+module.exports = { 
+    logout, 
+    buildLogin, 
+    buildRegister, 
+    registerAccount, 
+    accountLogin, 
+    buildAccount, 
+    buildUpdateAccount, 
+    updateAccount,
+    UpdateReview,
+    editReview, 
+    deleteReview,
+    DeleteReviewConfirm,
+}; 

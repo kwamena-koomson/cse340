@@ -1,70 +1,59 @@
-const express = require("express")
-const router = new express.Router() 
-const accountController = require("../controllers/accountController")
-const { handleErrors } = require("../utilities")
-const regValidate = require('../utilities/account-validation')
-const Util = require("../utilities"); 
-
-router.get("/", Util.checkLogin, handleErrors(accountController.buildAccount));
-
-
-// Route to build default account view
-router.get("/account", Util.checkLogin, handleErrors(accountController.buildAccount));
+// Needed Resources 
+const express = require("express"); 
+const router = new express.Router(); 
+const accountController = require("../controllers/accountController"); 
+const utilities = require("../utilities"); 
+const regValidate = require('../utilities/account-validation'); 
+const { render } = require("ejs"); 
 
 
-// Route to build account login view
-router.get("/login", handleErrors(accountController.buildLogin));
+// Route to handle requests for building login view
+router.get(
+    "/login", 
+    utilities.handleErrors(accountController.buildLogin));
+
+// Route to handle requests for building registration view
+router.get("/register", utilities.handleErrors(accountController.buildRegister));
+
+// Route to handle requests for building the account view
+router.get("/", 
+        utilities.checkLogin, 
+        utilities.handleErrors(accountController.buildAccount) 
+        );
+
+router.get("/update", utilities.handleErrors(accountController.buildUpdateAccount))
 
 
-// Process the login attempt
-router.post(
-  "/login",
-  regValidate.loginRules(),
-  regValidate.checkLoginData,
-  handleErrors(accountController.accountLogin)
-)
+router.get("/logout", utilities.handleErrors(accountController.logout));
 
-
-// Route to build account register view
-router.get("/register", handleErrors(accountController.buildRegister));
-
+router.get("/review/edit/:inv_id", utilities.handleErrors(accountController.editReview));
+router.get("/review/delete/:inv_id", utilities.handleErrors(accountController.deleteReview));
 
 // Process the registration data
 router.post(
-  "/register",
-  regValidate.registationRules(),
-  regValidate.checkRegData,
-  handleErrors(accountController.registerAccount)
+    "/register",
+    regValidate.registrationRules(), 
+    regValidate.checkRegData, 
+    utilities.handleErrors(accountController.registerAccount) 
 );
 
-
-// Route to build account login view
-router.get("/edit/:account_id", handleErrors(accountController.buildEditAccount));
-
-
-// Process the updated account information
 router.post(
-  "/accountupdate",
-  regValidate.updateAccountRules(),
-  regValidate.checkEditAccountData,
-  handleErrors(accountController.editAccountInfo)
-)
-
-
-// Process the account password change
+    "/review/edit",
+    regValidate.reviewRules(), 
+    regValidate.checkReviewData,
+    utilities.handleErrors(accountController.UpdateReview))
 router.post(
-  "/changepassword",
-  regValidate.changePasswordRules(),
-  regValidate.checkEditAccountData,
-  handleErrors(accountController.editAccountPassword)
-)
+    "/review/delete", 
+    utilities.handleErrors(accountController.DeleteReviewConfirm))
 
+// Process the login attempt
+router.post(
+    "/login",
+    regValidate.loginRules(), 
+    regValidate.checkLoginData, 
+    utilities.handleErrors(accountController.accountLogin) 
+);
 
-router.get(
-  "/logout",
-  handleErrors(accountController.logoutAccount),
-)
+router.post("/update", utilities.handleErrors(accountController.updateAccount))
 
-
-
-module.exports = router
+module.exports = router; 

@@ -1,0 +1,26 @@
+<% if (title){ %>
+    <h1><%= title %></h1>
+<% } else { %>
+    <%- res.redirect("/") %>
+<% } %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<form action="/account/review/delete" method="post" id="vehicleForm">
+    <label>Review Date: <input type="text" name="review_date" value="<%- date %>" readonly required></label>
+    <label>Review Text: <textarea type="text" name="review_text" readonly required><%- reviewText %></textarea></label>
+    
+    <input type="hidden" name="inv_id" value="<%- inv_id %>">
+    <input type="hidden" name="review_id" value="<%- review_id %>">
+    <input type="hidden" name="account_id" value="<%- locals.accountData.account_id %>">
+
+    <button type="submit">Delete Review</button>
+</form>

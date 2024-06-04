@@ -1,660 +1,75 @@
 /******* Change Box Model ***************/
-/* 
-   Ensure that all elements, pseudo-elements, and pseudo-classes 
-   adhere to the border-box box model to simplify layout calculations.
-*/
-*,
+/* *,
 *:before,
 *:after {
   box-sizing: border-box;
-}
-
-/* Set font family for the entire document */
-body {
-  font-family: 'Courier New', Courier, monospace;
-}
-
-/* Set height of images to 100% */
-img {
-  height: 100%;
-}
-
-/* Hide elements with class 'checkers' */
-.checkers {
-  display: none;
-}
-
-/* header styles */
-
-/* Set font and color for links in header and elements with class 'own-now' */
-header a, .own-now {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  text-decoration: none;
-  color: black;
-}
-
-/* Set font and color for heading elements */
-h1, h2, h3, h4 {
-  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
-  color: #094074;
-}
-
-/* Style for site name */
-.siteName {
-  font-size: 2em;
-  text-align: left;
-}
-
-/* Style for tools section */
-#tools {
-  text-align: right;
-}
-
-/* Style for top header */
-#top-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #f8f8f8;
-  border-bottom: 1px solid #ddd;
-}
-
-
-
-#top-header .siteName a {
-  text-decoration: none;
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #333;
-}
-
-
-#top-header #tools {
-  display: flex;
-  align-items: center;
-  gap: 10px; 
-}
-
-
-#top-header #tools a {
-  text-decoration: none;
-  color: #007BFF;
-  transition: color 0.3s ease;
-}
-
-#top-header #tools a:hover {
-  color: #0056b3;
-}
-
-
-#top-header .separator {
-  color: #333;
-}
-
-/* navigation styles */
-nav a {
-  color: #ffffff;
-  font-weight: bold;
-  padding: 8px;
-  text-decoration: none; 
-  transition: color 0.3s ease; 
-}
-
-nav a:hover {
-  color: #e74c3c; 
-}
-
-nav ul li {
-  list-style: none;
-}
-
-.notice li{
-  list-style: none;
-  padding: 10px;
-  background-color: #d6e9f9; 
-  border: 1px solid #bce8f1; 
-  color: #31708f; 
-  border-radius: 4px; 
-  margin-bottom: 10px;
-  transition: background-color 0.3s ease; 
-}
-
-/* MANAGEMENT PAGE */
-.management-links {
-  margin: 20px 0;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Styles for links within management-links */
-.management-links a {
-  display: block;
-  padding: 15px 20px;
-  margin: 10px 0;
-  text-decoration: none;
-  background-color: #007BFF;
-  color: white;
-  border-radius: 5px;
-  text-align: center;
-  font-size: 1.1em;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-
-.management-links a:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
-}
-
-.notice:hover {
-  background-color: #bce8f1; 
-}
-
-ul.notice {
-  list-style-type: none; 
-  padding: 0;
-}
-
-ul.notice li {
-  color: red; 
-  font-weight: bold; 
-  margin-bottom: 5px; 
-}
-
-
-nav > ul {
-  padding: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding: 1em;
-  font-family: helvetica, Arial, sans-serif;
-}
-
-nav {
-  background-color: #094074;
-}
-
-
-/* Hover effect for anchor tags */
-nav > ul > li:hover {
-  text-decoration: underline;
-}
-
-/* hero */
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-}
-.hero-grid  img {
-  width: 100%;
-  height: auto;
-  justify-self: center;
-  grid-column: 1/-1;
-  grid-row: 1/-1;
-}
-
-.hero-grid div {
-  background-color: rgba(255, 255, 255, 0.581);
-  color: #000000;
-  padding-left: 1em;
-  padding-right: 1em;
-  width: 90%;
-  grid-column: 1/2;
-  grid-row: 1/-1;
-}
-.hero-grid .own-now {
-  background-color:#1E90FF;
-  border-radius: 18px;
-  color: black;  
-  text-align: center;
-  padding: 1em;
-  transition: background-color 0.3s ease; 
-}
-
-.hero-grid .own-now:hover {
-  background-color: #7f8c8d; 
-  color: white; 
-}
-
-.extra-grid ul li{
-  padding: 6px;
-}
-
-
-/* Styles for the manage-inventory section */
-.manage-inventory {
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.manage-inventory h2 {
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.form--fieldset {
-  margin-bottom: 20px;
-}
-
-.form--fieldset label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-#classificationList {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  font-size: 16px;
-  color: #0056B3; 
-}
-
-#classificationList option {
-  color: #0056B3; 
-}
-
-#inventoryDisplay {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-#inventoryDisplay th, #inventoryDisplay td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
-
-#inventoryDisplay th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
-
-#inventoryDisplay tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-/* NoScript message */
-noscript {
-  color: red;
-  font-weight: bold;
-}
-
-
-/* Styles for the inventory display container */
-#inv-display {
-  display: grid;
-  gap: 1em; 
-  list-style: none; 
-  padding: 1em; 
-  justify-content: center; 
-}
-
-/* Styles for each inventory item */
-#inv-display li {
-  height: auto; 
-  width: 100%;
-  max-width: 25em;
-  background-color: #f4f4f4; 
-  border-radius: 1.5em; 
-  margin: 1em; 
-  padding: 2em; 
-  text-align: center; 
-}
-
-
-/* Styles for images within inventory items */
-#inv-display li img {
-  height: auto; 
-  max-height: 10em;
-  width: 100%; 
-  max-width: 100%; 
-}
-
-/* Add hover effect */
-#inv-display li:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); 
-}
-
-/* Add hover effect to images */
-#inv-display li:hover img {
-  transform: scale(1.1); /* Enlarge image on hover */
-}
-
-/* Styles for the single vehicle wrapper */
-#singleVehicleWrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-/* Styles for the vehicle image */
-#singleVehicleWrapper img {
-  max-width: 100%; 
-  height: auto;  
-}
-
-
-/** Form styles**/
-input {
-  background-color: #ffffff; 
-}
-
-input:required:invalid, input:focus:invalid {
-  background-color: #ffe6e6; 
- }
-
- input:required:valid {
-  background-color: #eaffea;
- }
-
-
- /* Form container */
-.form {
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-
-/* Form fieldset */
-.form--fieldset {
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-/* Form labels */
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-
-/* Form inputs */
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-
-/* Form submit button */
-input[type="submit"] {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-
-.form input[type="number"] {
-  width: calc(100% - 12px);
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-
-.form input[type="number"]::placeholder {
-  color: #999;
-}
-
-
-.form input[type="number"]:hover,
-.form input[type="number"]:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
-}
-
-input[type="submit"]:hover {
-  background-color: #0056b3;
-}
-
-
-.form--fieldset p {
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-
-
-.management-links {
-  display: flex;
-  justify-content: center;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
-
-.management-links a {
-  text-decoration: none;
-  color: #ffffff;
-  background-color: #007bff;
-  padding: 10px 16px; 
-  margin: 10px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%; 
-}
-
-.management-links a:hover {
-  background-color: #0056b3;
-}
-
-.form select {
-  width: calc(100% - 12px);
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-
-.addvehicle-form--fieldset {
-  margin-top: 20px;
-}
-
-
-#singleVehicleDetails {
-  list-style: none; 
-  padding: 0; 
-}
-
-#singleVehicleDetails li:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-
-#singleVehicleDetails li h2 {
-  font-size: 1.2em; 
-  margin: 0; 
-  padding: 0; 
-}
-
-
-#singleVehicleDetails li {
-  font-size: 1.2em; 
-  padding: .8em; 
-  border-radius: .5em; 
-}
-
-/* Footer styles */
-footer {
-    background-color: #333;
-    color: #fff;
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-    align-items: baseline;
-}
-
-footer a {
-  color: #ffffff;
-  font-weight: bold;
- 
-  text-decoration: none;
-}
-
-/* upgrades */
-.upgrade-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.upgrades {
-  text-align: center;
-}
-.upgrade {
-  background-color:dodgerblue;
-  border: 2px solid gray;
-  min-height: 5em;
-  text-align: center;
-  margin: .5em;
-  height: 60%;
-}
-.upgrades h2 {
-  text-align: left;
-}
-.upgrade img {
-  padding: .6em;
-}
-
-/* footer */
-footer {
-  padding: 1em;
-  padding-bottom: .2em;
-}
-
-@media screen and (min-width: 700px) {
-  body {
-    background-image: url("/images/site/checkerboard.jpg");
-    background-repeat:repeat;
-    background-size: 35em 35em;
+} */
+
+@media screen and (min-width:800px) {
+  body{
+    background-image: url(../images/site/small_check.jpg);
   }
-  #wrapper {
+  #wrapper{
     background-color: white;
-    border-radius: 1.2em;
-    border: 2px solid cornflowerblue;
-    width: 80%;
+    width: 75%;
+    margin: auto;
+    padding: 10px;
+    border: 2px solid blue;
+    border-radius: 2%;
+  }
+  main h1{
+    grid-column: 1/3;
+  }
+  #inv-display{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 90%;
     margin: auto;
   }
-
-  
-  main, nav {
-    margin: 1em;
+  #hero{
+    grid-column: 1/3;
   }
-
-  main .message {
-  font-family: 'Helvetica', Arial, sans-serif;
-  font-weight: bold;
-  color: #e74c3c; 
-  font-size: 1.2em; 
-  text-align: center; 
-   height: 6em;
+  #hero div{
+    top: 50px;
   }
-
-
-  .extra-grid {
+  #reviews ul li{
+    margin-top: 20px;
+  }
+  #reviews ul li:not(:last-child){
+    margin-bottom: 20px;
+  }
+  #last-section{
     display: flex;
     flex-direction: row-reverse;
-    justify-content: space-around;
-
+    gap: 50px;
+    padding: 10px;
   }
-
-}
-
-/* Media query for screens 300px or less */
-@media screen and (max-width: 700px) {
-  main .message {
-    color: #e74c3c; 
-    text-align: center; 
-    font-weight: 700; 
-    height: 7em;  
+  /*---- Single View ----*/
+  #singleView{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
-  
-}
-
-/* Media query for screens 300px or less */
-@media screen and (max-width: 300px) {
-  nav > ul {
-    flex-direction: column; 
-    align-items: center; 
+  #SingleViewInfo h3{
+    margin-top: 0;
   }
-
-  nav > ul > li {
-    margin-bottom: 10px;
+  #singleViewPicture{
+    width: 300px;
+    height: 150px;
+  }
+  #loginForm{
+    width: 35%;
+  }
+  #registerForm{
+    width: 35%;
+  }
+  #newClassificationForm,  #newVehicleForm{
+    width: 35%;
   }
 }
 
-/* Media query for screens 250px or less */
-@media screen and (max-width: 250px) {
-  .upgrade-grid {
-    grid-template-columns: 1fr; 
-  }
-}
-
-@media only screen and (max-width: 1100px) {
-  #singleVehicleWrapper {
-    flex-direction: column;
-    align-items: center; 
-  }
-}
-
-@media (max-width: 767px) { 
-  .management-links {
-      flex-direction: column; 
-      align-items: center; 
-  }
-
-  .management-links a {
-      width: auto; 
-  }
-}
-
-
-@media (max-width: 600px) {
-  #top-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  #top-header #tools {
-    margin-top: 10px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px; 
-  }
-
-  #top-header .separator {
-    display: none;
+@media screen and (min-width:1300px) {
+  #inv-display{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr
   }
 }
